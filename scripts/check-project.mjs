@@ -27,6 +27,7 @@ const required = [
   'scripts/install.sh',
   'scripts/rollback.sh',
   'scripts/validate.sh',
+  'src/mailcow/rn-profile-photo.php',
   'src/mailcow/rn-suite.css',
   'src/mailcow/rn-suite.js',
   'src/sogo/custom-sogo.js',
@@ -47,7 +48,7 @@ for (const path of required) {
 }
 
 const ignoredDirectories = new Set(['.git', 'node_modules']);
-const textExtensions = new Set(['.css', '.html', '.js', '.json', '.md', '.mjs', '.sh', '.svg', '.txt', '.yaml', '.yml']);
+const textExtensions = new Set(['.css', '.html', '.js', '.json', '.md', '.mjs', '.php', '.sh', '.svg', '.txt', '.yaml', '.yml']);
 const textFiles = [];
 
 function walk(directory) {
@@ -113,6 +114,7 @@ for (const path of ['src/mailcow/rn-suite.css', 'src/sogo/custom-theme.css']) {
 
 const configExample = readFileSync(join(root, 'config/rn-config.example.js'), 'utf8');
 if (!configExample.includes("defaultDomain: 'example.com'")) fail('configuration example must use example.com');
+if (!configExample.includes("directoryLabel: 'Internal directory'")) fail('configuration example must include a generic directory label');
 if (!readFileSync(join(root, '.gitignore'), 'utf8').includes('config/rn-config.js')) {
   fail('.gitignore must exclude config/rn-config.js');
 }
@@ -132,6 +134,7 @@ for (const [path, marker] of licenseChecks) {
 }
 
 const spdxChecks = [
+  ['src/mailcow/rn-profile-photo.php', 'GPL-3.0-only'],
   ['src/mailcow/rn-suite.css', 'GPL-3.0-only'],
   ['src/mailcow/rn-suite.js', 'GPL-3.0-only'],
   ['src/sogo/custom-theme.css', 'GPL-2.0-only'],
@@ -143,6 +146,21 @@ for (const [path, identifier] of spdxChecks) {
   if (!contents.slice(0, 500).includes(`SPDX-License-Identifier: ${identifier}`)) {
     fail(`${path}: SPDX identifier ${identifier} is missing near the top`);
   }
+}
+
+const installer = readFileSync(join(root, 'scripts/install.sh'), 'utf8');
+for (const marker of ['rn-profile-photo.php', 'rn-profile-photos', '--force-recreate', 'sogo_script_tmp']) {
+  if (!installer.includes(marker)) fail(`installer integration marker is missing: ${marker}`);
+}
+
+const sogoScript = readFileSync(join(root, 'src/sogo/custom-sogo.js'), 'utf8');
+for (const marker of ['function syncMessageRouteState', 'rn-message-loading', 'openProfileCropper', 'MAIL_CONFIG.defaultDomain']) {
+  if (!sogoScript.includes(marker)) fail(`SOGo integration marker is missing: ${marker}`);
+}
+try {
+  new vm.Script(`${configExample}\n${sogoScript}`, { filename: 'installed-custom-sogo.js' });
+} catch (error) {
+  fail(`combined SOGo configuration/script parse error: ${error.message}`);
 }
 
 if (failures.length) {

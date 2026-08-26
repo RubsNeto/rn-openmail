@@ -21,6 +21,10 @@ RN Mail Theme gives an existing **mailcow: dockerized** installation a complete 
 - Domain management is the administrator's primary destination, with direct navigation and focused actions.
 - Responsive navigation aligns with the content frame instead of stretching edge to edge.
 - Consistent RN visual system across login, user/admin pages and SOGo.
+- Gmail-inspired focused reader that hides the inbox list immediately, without flashing the previous split view.
+- Native profile photos with authenticated local storage, circular crop, drag and zoom.
+- Refined composer with clearer recipient suggestions and honest internal/external address guidance.
+- Centered sidebar brand, compact search/list chrome and a direct route back from Preferences.
 - Accessible page landmarks, skip link, labels, focus states and reduced-motion support.
 - Configurable product name, company, default login domain, logo and admin landing behavior.
 - Backup-first installer, post-install validation and checksum-protected rollback.
@@ -67,12 +71,13 @@ window.RN_MAIL_CONFIG = Object.freeze({
   brand: 'RN Mail',
   company: 'Example Company',
   defaultDomain: 'example.com',
+  directoryLabel: 'Internal directory',
   logoUrl: '/img/rn-logo.png',
   adminDomainsLanding: true
 });
 ```
 
-An empty `defaultDomain` requires users to enter a complete email address. Set `adminDomainsLanding` to `false` to retain mailcow's normal administrator landing page. See [Configuration](docs/CONFIGURATION.md) for rebranding and SOGo details.
+An empty `defaultDomain` requires users to enter a complete email address. `directoryLabel` names confirmed internal recipients in SOGo. Set `adminDomainsLanding` to `false` to retain mailcow's normal administrator landing page. See [Configuration](docs/CONFIGURATION.md) for rebranding and SOGo details.
 
 ## Validate and roll back
 
@@ -80,13 +85,13 @@ The installer prints the new backup directory. Validate local services and publi
 
 ```bash
 sudo RN_MAIL_URL=https://mail.example.com \
-  ./scripts/validate.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.0.0
+  ./scripts/validate.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
 ```
 
 Restore the exact pre-install interface state with:
 
 ```bash
-sudo ./scripts/rollback.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.0.0
+sudo ./scripts/rollback.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
 ```
 
 Rollback verifies the backup checksum and archive paths, restores previous files and removes only theme files recorded as previously absent.
@@ -95,7 +100,7 @@ Rollback verifies the backup checksum and archive paths, restores previous files
 
 | Path | Purpose |
 | --- | --- |
-| `src/mailcow/` | Complete mailcow CSS and browser behavior. |
+| `src/mailcow/` | Complete mailcow CSS, browser behavior and authenticated profile-photo endpoint. |
 | `src/sogo/` | SOGo theme and integration files. |
 | `assets/` | RN marks and locally served fonts. |
 | `config/` | Safe public configuration example. |

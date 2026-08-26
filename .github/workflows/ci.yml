@@ -35,6 +35,9 @@ jobs:
       - name: Parse shell scripts
         run: bash -n scripts/*.sh
 
+      - name: Parse PHP endpoint
+        run: php -l src/mailcow/rn-profile-photo.php
+
       - name: Run ShellCheck
         run: shellcheck scripts/*.sh
 

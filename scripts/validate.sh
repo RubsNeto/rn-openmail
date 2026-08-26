@@ -20,6 +20,7 @@ required_local=(
   data/web/css/build/0081-rn-suite.css
   data/web/js/build/098-rn-config.js
   data/web/js/build/099-rn-suite.js
+  data/web/rn-profile-photo.php
   data/web/img/rn-logo.png
   data/conf/sogo/custom-theme.css
   data/conf/sogo/custom-sogo.js
@@ -27,11 +28,21 @@ required_local=(
 for relative_path in "${required_local[@]}"; do
   [[ -s "${relative_path}" ]] || die "installed file missing: ${relative_path}"
 done
+[[ -d data/web/img/rn-profile-photos ]] || die 'profile-photo directory is missing'
 
 grep -q 'SPDX-License-Identifier: GPL-3.0-only' data/web/css/build/0081-rn-suite.css
 grep -q 'window.RN_MAIL_CONFIG' data/web/js/build/098-rn-config.js
 grep -q 'ADMIN_DOMAINS_LANDING' data/web/js/build/099-rn-suite.js
 grep -q 'rn-mail-theme' data/conf/sogo/custom-sogo.js
+grep -q 'function syncMessageRouteState' data/conf/sogo/custom-sogo.js
+grep -q 'rn-message-loading' data/conf/sogo/custom-theme.css
+grep -q 'rn_photo_same_origin' data/web/rn-profile-photo.php
+docker compose exec -T php-fpm-mailcow php -l /web/rn-profile-photo.php >/dev/null
+php_uid="$(docker compose exec -T php-fpm-mailcow id -u www-data)"
+php_gid="$(docker compose exec -T php-fpm-mailcow id -g www-data)"
+photo_owner="$(stat -c '%u:%g' data/web/img/rn-profile-photos)"
+[[ "${photo_owner}" == "${php_uid}:${php_gid}" ]] || die "unexpected profile-photo directory owner: ${photo_owner}"
+docker compose exec -T --user "${php_uid}:${php_gid}" php-fpm-mailcow test -w /web/img/rn-profile-photos
 docker compose config --quiet
 
 running_services="$(docker compose ps --status running --services)"
@@ -56,6 +67,10 @@ if [[ -n "${base_url}" ]]; then
     [[ "${status}" == '200' ]] || die "unexpected HTTP ${status}: ${url}"
     printf '200 %s\n' "${url}"
   done
+
+  photo_status="$(curl --silent --show-error --location --output /dev/null --write-out '%{http_code}' "${base_url}/rn-profile-photo.php")"
+  [[ "${photo_status}" == '401' ]] || die "unexpected unauthenticated profile-photo HTTP ${photo_status}"
+  printf '401 %s/rn-profile-photo.php (authentication required)\n' "${base_url}"
 else
   printf 'Remote checks skipped. Set RN_MAIL_URL=https://mail.example.com to enable them.\n'
 fi

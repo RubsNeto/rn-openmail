@@ -21,6 +21,10 @@ O RN Mail Theme aplica a experiência visual completa da RN a uma instalação e
 - Domínios são o destino principal do administrador, com navegação direta e ações em destaque.
 - A navbar responsiva acompanha a mesma largura dos blocos da tela, sem ocupar toda a horizontal.
 - Sistema visual RN consistente no login, usuário, administração e SOGo.
+- Leitor focado inspirado no Gmail, ocultando a lista imediatamente e sem piscar a antiga divisão da tela.
+- Foto de perfil nativa com armazenamento local autenticado, recorte circular, arraste e zoom.
+- Compositor refinado, sugestões mais claras e orientação honesta para endereços internos e externos.
+- Marca centralizada na lateral, busca/listagem compactas e retorno direto das Preferências ao e-mail.
 - Landmarks, link para pular conteúdo, labels, foco visível e suporte a movimento reduzido.
 - Nome do produto, empresa, domínio padrão, logo e tela inicial do admin configuráveis.
 - Instalador com backup prévio, validação e rollback protegido por checksum.
@@ -67,12 +71,13 @@ window.RN_MAIL_CONFIG = Object.freeze({
   brand: 'RN Mail',
   company: 'Example Company',
   defaultDomain: 'example.com',
+  directoryLabel: 'Internal directory',
   logoUrl: '/img/rn-logo.png',
   adminDomainsLanding: true
 });
 ```
 
-Deixe `defaultDomain` vazio para exigir o e-mail completo. Use `adminDomainsLanding: false` para manter a página inicial padrão do administrador. Consulte [Configuração](docs/CONFIGURATION.md) para trocar marca e personalizar o SOGo.
+Deixe `defaultDomain` vazio para exigir o e-mail completo. `directoryLabel` nomeia os destinatários internos confirmados no SOGo. Use `adminDomainsLanding: false` para manter a página inicial padrão do administrador. Consulte [Configuração](docs/CONFIGURATION.md) para trocar marca e personalizar o SOGo.
 
 ## Validar e reverter
 
@@ -80,13 +85,13 @@ O instalador informa o diretório do backup. Valide serviços locais e assets p�
 
 ```bash
 sudo RN_MAIL_URL=https://mail.example.com \
-  ./scripts/validate.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.0.0
+  ./scripts/validate.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
 ```
 
 Restaure exatamente o estado anterior da interface com:
 
 ```bash
-sudo ./scripts/rollback.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.0.0
+sudo ./scripts/rollback.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
 ```
 
 O rollback verifica checksum e caminhos do arquivo, restaura os arquivos anteriores e remove somente arquivos do tema registrados como inexistentes antes da instalação.
@@ -95,7 +100,7 @@ O rollback verifica checksum e caminhos do arquivo, restaura os arquivos anterio
 
 | Caminho | Finalidade |
 | --- | --- |
-| `src/mailcow/` | CSS completo e comportamento do mailcow. |
+| `src/mailcow/` | CSS, comportamento do mailcow e endpoint autenticado de foto do perfil. |
 | `src/sogo/` | Tema e integração do SOGo. |
 | `assets/` | Marcas RN e fontes servidas localmente. |
 | `config/` | Exemplo seguro de configuração pública. |

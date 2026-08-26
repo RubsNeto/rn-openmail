@@ -1642,3 +1642,1863 @@ body[ng-app="SOGo.MailerUI"] md-sidenav.md-sidenav-left > md-toolbar.sg-padded.m
   border-radius: 50% !important;
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px rgba(71, 171, 225, 0.24) !important;
 }
+
+/* RN Mail workspace v8: brand shell, account profile and compact inbox. */
+body[ng-app^="SOGo"] md-sidenav.md-sidenav-left > md-toolbar.rn-shell-branded {
+  position: relative !important;
+  min-height: 64px !important;
+  height: 64px !important;
+  padding: 0 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border-bottom: 1px solid var(--rn-border) !important;
+  box-shadow: none !important;
+}
+
+body[ng-app^="SOGo"] md-sidenav.md-sidenav-left > md-toolbar.rn-shell-branded > sg-avatar-image,
+body[ng-app^="SOGo"] md-sidenav.md-sidenav-left > md-toolbar.rn-shell-branded > .layout-row {
+  display: none !important;
+}
+
+.rn-shell-brand {
+  width: 134px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 12px;
+  outline: none;
+}
+
+.rn-shell-brand img {
+  display: block;
+  width: 118px;
+  max-height: 44px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.rn-shell-brand:hover,
+.rn-shell-brand:focus-visible {
+  background: #f0f8fc;
+}
+
+@media (min-width: 960px) {
+  md-toolbar.toolbar-main .sg-toolbar-group-1::after,
+  body[ng-app="SOGo.PreferencesUI"] md-toolbar .sg-toolbar-group-1::after {
+    content: none !important;
+    display: none !important;
+  }
+}
+
+body[ng-app^="SOGo"] .rn-account-pill {
+  min-width: 0;
+  height: 48px;
+  margin: 0 8px 0 10px;
+  padding: 4px 5px 4px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--rn-text) !important;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(217, 230, 238, 0.96);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(4, 16, 29, 0.10);
+  text-decoration: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+body[ng-app^="SOGo"] .rn-account-pill:hover,
+body[ng-app^="SOGo"] .rn-account-pill:focus-visible {
+  color: var(--rn-text) !important;
+  background: #ffffff !important;
+  border-color: rgba(71, 171, 225, 0.58);
+  box-shadow: 0 7px 20px rgba(4, 16, 29, 0.15);
+  transform: translateY(-1px);
+  outline: 3px solid rgba(63, 208, 233, 0.18);
+  outline-offset: 1px;
+}
+
+.rn-account-copy {
+  min-width: 0;
+  max-width: 168px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.15;
+}
+
+.rn-account-name,
+.rn-account-email {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rn-account-name {
+  color: var(--rn-navy);
+  font-size: 0.76rem;
+  font-weight: 730;
+}
+
+.rn-account-email {
+  margin-top: 2px;
+  color: var(--rn-text-muted);
+  font-size: 0.58rem;
+  font-weight: 520;
+}
+
+.rn-account-avatar,
+.rn-account-avatar-rendered,
+.rn-account-avatar-rendered > sg-avatar-image,
+.rn-profile-avatar,
+.rn-profile-avatar > sg-avatar-image,
+.rn-suggestion-avatar,
+.rn-suggestion-avatar > sg-avatar-image,
+.rn-recipient-preview,
+.rn-recipient-preview > sg-avatar-image {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.rn-account-avatar {
+  width: 38px;
+  height: 38px;
+}
+
+.rn-account-avatar-rendered {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px rgba(71, 171, 225, 0.34);
+}
+
+.rn-avatar-fallback {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  color: #ffffff;
+  background: linear-gradient(145deg, var(--rn-blue), var(--rn-cyan));
+  border-radius: 50%;
+  font-weight: 740;
+  letter-spacing: -0.02em;
+}
+
+/* Preferences become a focused RN workspace with an obvious route back. */
+body.rn-preferences-v8 > main,
+body.rn-preferences-v8 main > form {
+  background: var(--rn-surface-soft) !important;
+}
+
+body.rn-preferences-v8 md-sidenav.md-sidenav-left md-content {
+  background: #f8fbfd !important;
+}
+
+body.rn-preferences-v8 md-sidenav.md-sidenav-left .md-subheader {
+  padding: 18px 16px 7px !important;
+  background: transparent !important;
+  color: #6b8290 !important;
+  font-size: 0.64rem !important;
+  font-weight: 760 !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase;
+}
+
+body.rn-preferences-v8 md-sidenav.md-sidenav-left md-list {
+  padding: 4px 10px 18px !important;
+}
+
+body.rn-preferences-v8 md-sidenav.md-sidenav-left md-list-item {
+  min-height: 48px !important;
+  margin: 3px 0 !important;
+  border-radius: 13px !important;
+  overflow: hidden;
+}
+
+body.rn-preferences-v8 md-sidenav.md-sidenav-left md-list-item.md-bg,
+body.rn-preferences-v8 md-sidenav.md-sidenav-left md-list-item:hover {
+  background: linear-gradient(90deg, rgba(63, 208, 233, 0.16), rgba(71, 171, 225, 0.10)) !important;
+}
+
+body.rn-preferences-v8 md-sidenav.md-sidenav-left md-list-item md-icon {
+  color: var(--rn-blue) !important;
+}
+
+body.rn-preferences-v8 md-sidenav.md-sidenav-left md-list-item .sg-item-name {
+  color: #29485c !important;
+  font-size: 0.76rem !important;
+  font-weight: 620 !important;
+}
+
+.rn-back-mail {
+  min-width: max-content;
+  height: 42px;
+  margin: 0 8px;
+  padding: 0 15px 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  font-size: 0.70rem;
+  font-weight: 680;
+  text-decoration: none;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.rn-back-mail md-icon {
+  width: 20px !important;
+  height: 20px !important;
+  color: #ffffff !important;
+  font-size: 20px !important;
+}
+
+.rn-back-mail:hover,
+.rn-back-mail:focus-visible {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.22) !important;
+  transform: translateX(-2px);
+  outline: 2px solid rgba(255, 255, 255, 0.42);
+  outline-offset: 2px;
+}
+
+body.rn-preferences-v8 md-toolbar.md-tall:not(.sg-padded) {
+  min-height: 64px !important;
+  height: 64px !important;
+  align-items: center !important;
+  background-color: var(--rn-navy) !important;
+  background-image: linear-gradient(105deg, #071a2b 0%, #0b3e62 56%, #116b8d 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 24px rgba(4, 16, 29, 0.14) !important;
+}
+
+body.rn-preferences-v8 md-toolbar.md-tall:not(.sg-padded) .sg-date-group,
+body.rn-preferences-v8 md-toolbar.md-tall:not(.sg-padded) .sg-date-today {
+  display: none !important;
+}
+
+body.rn-preferences-v8 md-toolbar.md-tall:not(.sg-padded) .sg-toolbar-group-1 {
+  min-width: 64px !important;
+}
+
+body.rn-preferences-v8 md-tabs > md-tabs-wrapper {
+  padding: 0 24px;
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--rn-border) !important;
+}
+
+body.rn-preferences-v8 md-tab-item {
+  min-height: 48px !important;
+  padding: 14px 18px 10px !important;
+  color: #607987 !important;
+  font-size: 0.68rem !important;
+  font-weight: 720 !important;
+  letter-spacing: 0.06em !important;
+}
+
+body.rn-preferences-v8 md-tab-item.md-active {
+  color: var(--rn-blue) !important;
+}
+
+body.rn-preferences-v8 #generalOptionsView-content {
+  width: calc(100% - 48px) !important;
+  max-width: 1120px !important;
+  margin: 24px auto 88px !important;
+  padding: 28px 32px 40px !important;
+  box-sizing: border-box !important;
+  background: #ffffff !important;
+  border: 1px solid var(--rn-border) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 35px rgba(4, 16, 29, 0.07) !important;
+}
+
+body.rn-preferences-v8 #generalOptionsView-content md-input-container {
+  margin-top: 14px !important;
+  margin-bottom: 12px !important;
+}
+
+body.rn-preferences-v8 #generalOptionsView-content label {
+  color: #607987 !important;
+  font-size: 0.70rem !important;
+  font-weight: 620 !important;
+}
+
+.rn-avatar-preference {
+  position: relative;
+  width: 100%;
+  margin: 26px 0 18px !important;
+  padding: 22px !important;
+  box-sizing: border-box;
+  display: grid !important;
+  grid-template-columns: 64px minmax(220px, 1fr) minmax(280px, auto);
+  align-items: center !important;
+  gap: 18px;
+  background: linear-gradient(135deg, #f7fbfe 0%, #eef8fc 100%);
+  border: 1px solid #cfe4ee;
+  border-radius: 18px;
+}
+
+.rn-profile-avatar {
+  width: 64px;
+  height: 64px;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px #ffffff, 0 0 0 5px rgba(71, 171, 225, 0.34), 0 8px 20px rgba(4, 16, 29, 0.12);
+}
+
+.rn-avatar-description {
+  min-width: 0;
+}
+
+.rn-preference-kicker {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--rn-blue);
+  font-size: 0.60rem;
+  font-weight: 780;
+  letter-spacing: 0.11em;
+}
+
+.rn-avatar-description h2 {
+  margin: 0 0 5px;
+  color: var(--rn-navy);
+  font-size: 1.02rem;
+  font-weight: 740;
+  letter-spacing: -0.02em;
+}
+
+.rn-avatar-description p {
+  max-width: 580px;
+  margin: 0;
+  color: #4d6979;
+  font-size: 0.70rem;
+  line-height: 1.5;
+}
+
+.rn-avatar-description small {
+  display: block;
+  margin-top: 7px;
+  color: #708692;
+  font-size: 0.60rem;
+}
+
+.rn-avatar-controls {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(130px, 0.8fr);
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.rn-avatar-controls md-checkbox,
+.rn-avatar-controls md-input-container {
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+.rn-avatar-controls md-checkbox {
+  color: var(--rn-navy) !important;
+  font-size: 0.66rem !important;
+  font-weight: 650 !important;
+}
+
+.rn-avatar-action {
+  grid-column: 1 / -1;
+  min-height: 40px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #ffffff !important;
+  background: linear-gradient(105deg, var(--rn-blue), #258dc8);
+  border-radius: 11px;
+  box-shadow: 0 7px 18px rgba(26, 111, 174, 0.20);
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rn-avatar-action md-icon {
+  width: 18px !important;
+  height: 18px !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+}
+
+.rn-avatar-action:hover,
+.rn-avatar-action:focus-visible {
+  color: #ffffff !important;
+  background: linear-gradient(105deg, #145f94, #1c83bc) !important;
+  outline: 3px solid rgba(71, 171, 225, 0.22);
+  outline-offset: 2px;
+}
+
+/* Inbox list: one compact control row, then messages immediately. */
+body.rn-mail-list-v8 .view-list > md-toolbar.md-accent,
+body.rn-mail-list-v8 .view-list > md-toolbar.md-hue-1,
+body.rn-mail-list-v8 .view-list > md-toolbar.advanced-search-clickable-toolbar {
+  min-height: 46px !important;
+  height: 46px !important;
+  margin-top: 7px !important;
+  margin-bottom: 4px !important;
+  padding: 0 7px !important;
+}
+
+body.rn-mail-list-v8 .view-list > md-toolbar .md-toolbar-tools {
+  min-height: 46px !important;
+  height: 46px !important;
+}
+
+body.rn-mail-list-v8 .view-list > md-toolbar .sg-icon-button,
+body.rn-mail-list-v8 .view-list > md-toolbar button.sg-icon-button {
+  width: 36px !important;
+  min-width: 36px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  margin: 0 3px !important;
+  padding: 7px !important;
+}
+
+body.rn-mail-list-v8 #messagesList > .md-subheader {
+  display: none !important;
+}
+
+.rn-sort-current {
+  max-width: 148px;
+  height: 30px;
+  margin: 0 3px 0 1px;
+  padding: 0 10px;
+  overflow: hidden;
+  color: #526b7a;
+  background: #ffffff;
+  border: 1px solid #d9e6ee;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.60rem;
+  font-weight: 630;
+  line-height: 28px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.rn-sort-current:hover,
+.rn-sort-current:focus-visible {
+  color: var(--rn-blue);
+  background: #f4fafe;
+  border-color: rgba(71, 171, 225, 0.58);
+  outline: 2px solid rgba(63, 208, 233, 0.18);
+  outline-offset: 1px;
+}
+
+/* Compose dialog: familiar Gmail flow with RN visual language. */
+md-backdrop.md-dialog-backdrop {
+  background: rgba(4, 16, 29, 0.62) !important;
+}
+
+#mailEditor.rn-compose-v8 {
+  width: min(1040px, calc(100vw - 44px)) !important;
+  max-width: 1040px !important;
+  height: min(820px, calc(100vh - 40px)) !important;
+  max-height: calc(100vh - 40px) !important;
+  flex: 0 1 1040px !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(217, 230, 238, 0.92) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 30px 90px rgba(4, 16, 29, 0.34), 0 8px 28px rgba(4, 16, 29, 0.18) !important;
+}
+
+#mailEditor.rn-compose-v8 > form {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar {
+  flex: 0 0 74px;
+  min-height: 74px !important;
+  height: 74px !important;
+  background-color: var(--rn-navy) !important;
+  background-image: linear-gradient(110deg, #071827 0%, #0a3554 54%, #14779a 100%) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar .md-toolbar-tools {
+  min-height: 74px !important;
+  height: 74px !important;
+  padding: 0 16px !important;
+  gap: 8px;
+}
+
+.rn-compose-heading {
+  min-width: 130px;
+  margin-right: 4px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.13;
+}
+
+.rn-compose-heading > span {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.55rem;
+  font-weight: 760;
+  letter-spacing: 0.12em;
+}
+
+.rn-compose-heading > strong {
+  margin-top: 4px;
+  color: #ffffff;
+  font-size: 0.90rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar sg-avatar-image {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.24) !important;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar md-autocomplete {
+  min-width: 190px;
+  margin: 0 6px 0 0 !important;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px !important;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar md-autocomplete-wrap {
+  height: 40px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar md-autocomplete input {
+  height: 40px !important;
+  padding: 0 40px 0 12px !important;
+  color: #ffffff !important;
+  font-size: 0.68rem !important;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar md-autocomplete input::placeholder {
+  color: rgba(255, 255, 255, 0.68) !important;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar .sg-icon-button {
+  width: auto !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 11px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #ffffff !important;
+  border-radius: 11px !important;
+}
+
+#mailEditor.rn-compose-v8 > form > md-toolbar .sg-icon-button md-icon {
+  color: #ffffff !important;
+}
+
+#mailEditor.rn-compose-v8 .rn-compose-send {
+  min-width: 94px !important;
+  background: linear-gradient(110deg, var(--rn-cyan), #48aee4) !important;
+  box-shadow: 0 6px 16px rgba(63, 208, 233, 0.24);
+  font-weight: 720;
+}
+
+#mailEditor.rn-compose-v8 .rn-compose-send[disabled] {
+  opacity: 0.42;
+  box-shadow: none;
+}
+
+#mailEditor.rn-compose-v8 .rn-compose-save {
+  background: rgba(255, 255, 255, 0.11) !important;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+}
+
+#mailEditor.rn-compose-v8 .rn-compose-close {
+  padding: 0 !important;
+}
+
+.rn-button-label {
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+#mailEditor.rn-compose-v8 md-dialog-content {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden !important;
+  background: #ffffff !important;
+}
+
+#mailEditor.rn-compose-v8 md-dialog-content > header.sg-padded {
+  flex: 0 0 auto;
+  padding: 13px 24px 9px !important;
+  background: #f9fcfe !important;
+  border-bottom: 1px solid var(--rn-border);
+}
+
+#mailEditor.rn-compose-v8 .pseudo-input-container {
+  min-height: 42px !important;
+  padding: 2px 0 !important;
+  border-bottom-color: #deebf2 !important;
+}
+
+#mailEditor.rn-compose-v8 .pseudo-input-label {
+  width: 58px !important;
+  color: #5d7685 !important;
+  font-size: 0.66rem !important;
+  font-weight: 680 !important;
+}
+
+#mailEditor.rn-compose-v8 .pseudo-input-container md-chips,
+#mailEditor.rn-compose-v8 .pseudo-input-container .md-chips {
+  min-height: 38px !important;
+}
+
+#mailEditor.rn-compose-v8 .pseudo-input-container input,
+#mailEditor.rn-compose-v8 input[name="subject"] {
+  color: var(--rn-text) !important;
+  font-size: 0.72rem !important;
+}
+
+#mailEditor.rn-compose-v8 md-chip {
+  height: 30px !important;
+  margin: 4px 4px 4px 0 !important;
+  color: #174869 !important;
+  background: #e5f4fb !important;
+  border: 1px solid #c8e5f2;
+  border-radius: 999px !important;
+}
+
+.rn-recipient-status {
+  min-height: 22px;
+  margin: -2px 0 3px 58px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #607987;
+  font-size: 0.57rem;
+  font-weight: 560;
+  line-height: 1.35;
+}
+
+.rn-recipient-status > md-icon {
+  width: 15px !important;
+  height: 15px !important;
+  color: currentColor !important;
+  font-size: 15px !important;
+}
+
+.rn-recipient-status.rn-state-valid {
+  color: #17744b;
+}
+
+.rn-recipient-status.rn-state-invalid {
+  color: #b23844;
+}
+
+.rn-recipient-status.rn-state-gmail {
+  color: #315f9a;
+}
+
+.rn-recipient-status.rn-state-external {
+  color: #6b687f;
+}
+
+.rn-recipient-preview {
+  width: 24px !important;
+  height: 24px !important;
+  margin-right: 1px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(71, 171, 225, 0.30);
+}
+
+.rn-shake {
+  animation: rn-recipient-shake 320ms ease-in-out;
+}
+
+@keyframes rn-recipient-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+#mailEditor.rn-compose-v8 .ck-editor {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#mailEditor.rn-compose-v8 .ck-editor__top {
+  flex: 0 0 auto;
+}
+
+#mailEditor.rn-compose-v8 .ck-toolbar {
+  padding: 7px 14px !important;
+  background: #ffffff !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--rn-border) !important;
+}
+
+#mailEditor.rn-compose-v8 .ck-editor__main {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+#mailEditor.rn-compose-v8 .ck-editor__editable {
+  width: 100%;
+  min-height: 230px !important;
+  padding: 22px 26px !important;
+  color: var(--rn-text) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-size: 0.82rem !important;
+  line-height: 1.65 !important;
+}
+
+#mailEditor.rn-compose-v8 md-dialog-actions.sg-mail-editor-attachments {
+  flex: 0 0 auto;
+  min-height: 52px !important;
+  padding: 5px 14px !important;
+  background: #f8fbfd !important;
+  border-top: 1px solid var(--rn-border) !important;
+}
+
+/* Recipient suggestions with photos and clear trust cues. */
+.md-autocomplete-suggestions-container {
+  z-index: 10050 !important;
+  margin-top: 5px;
+  overflow: hidden !important;
+  background: #ffffff !important;
+  border: 1px solid var(--rn-border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 18px 46px rgba(4, 16, 29, 0.20) !important;
+}
+
+.md-autocomplete-suggestions-container li {
+  min-height: 66px !important;
+  padding: 8px 12px !important;
+  border-bottom: 1px solid #edf3f6;
+}
+
+.md-autocomplete-suggestions-container li:last-child {
+  border-bottom: 0;
+}
+
+.md-autocomplete-suggestions-container li:hover,
+.md-autocomplete-suggestions-container li.selected,
+.md-autocomplete-suggestions-container li.md-focused {
+  background: #eef8fc !important;
+}
+
+.rn-recipient-suggestion {
+  width: 100%;
+  min-height: 50px;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.rn-suggestion-avatar {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: 40px !important;
+  height: 40px !important;
+  background: linear-gradient(145deg, #edf7fc, #ffffff);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px rgba(71, 171, 225, 0.28);
+}
+
+.rn-recipient-suggestion > .sg-md-subhead {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  color: var(--rn-navy) !important;
+  font-size: 0.70rem !important;
+  font-weight: 680 !important;
+}
+
+.rn-recipient-suggestion > .sg-md-body {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  color: #708692 !important;
+  font-size: 0.59rem !important;
+}
+
+.rn-recipient-trust {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  min-width: max-content;
+  padding: 5px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #587181;
+  background: #f4f8fa;
+  border: 1px solid #dfeaf0;
+  border-radius: 999px;
+  font-size: 0.53rem;
+  font-weight: 650;
+}
+
+.rn-recipient-trust md-icon {
+  width: 14px !important;
+  height: 14px !important;
+  color: currentColor !important;
+  font-size: 14px !important;
+}
+
+.rn-recipient-trust.rn-trust-internal {
+  color: #16714a;
+  background: #eaf8f1;
+  border-color: #c9ead9;
+}
+
+.rn-recipient-trust.rn-trust-gmail {
+  color: #315f9a;
+  background: #edf3fb;
+  border-color: #d4e0f1;
+}
+
+@media (max-width: 1279px) {
+  .rn-account-copy {
+    max-width: 112px;
+  }
+
+  .rn-account-email {
+    display: none;
+  }
+
+  .rn-avatar-preference {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .rn-avatar-controls {
+    grid-column: 1 / -1;
+  }
+
+  .rn-compose-heading {
+    min-width: 108px;
+  }
+
+  #mailEditor.rn-compose-v8 {
+    width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 32px) !important;
+  }
+}
+
+@media (max-width: 959px) {
+  body[ng-app^="SOGo"] .rn-account-copy {
+    display: none;
+  }
+
+  body[ng-app^="SOGo"] .rn-account-pill {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    margin: 0 4px;
+    padding: 2px;
+    justify-content: center;
+  }
+
+  .rn-back-mail span {
+    display: none;
+  }
+
+  .rn-back-mail {
+    width: 40px;
+    min-width: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .rn-sort-current {
+    display: none;
+  }
+
+  #mailEditor.rn-compose-v8 {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    height: calc(100vh - 16px) !important;
+    max-height: calc(100vh - 16px) !important;
+    border-radius: 18px !important;
+  }
+
+  .rn-compose-heading {
+    min-width: 0;
+    margin-right: auto;
+  }
+
+  #mailEditor.rn-compose-v8 > form > md-toolbar sg-avatar-image,
+  #mailEditor.rn-compose-v8 > form > md-toolbar md-autocomplete {
+    display: none !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .rn-shell-brand {
+    width: 112px;
+  }
+
+  .rn-shell-brand img {
+    width: 102px;
+  }
+
+  body.rn-preferences-v8 #generalOptionsView-content {
+    width: calc(100% - 20px) !important;
+    margin: 12px auto 78px !important;
+    padding: 20px 16px 30px !important;
+    border-radius: 16px !important;
+  }
+
+  .rn-avatar-preference {
+    grid-template-columns: 54px 1fr;
+    gap: 14px;
+    padding: 17px !important;
+  }
+
+  .rn-profile-avatar,
+  .rn-profile-avatar > sg-avatar-image {
+    width: 54px !important;
+    height: 54px !important;
+  }
+
+  .rn-avatar-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .rn-avatar-action {
+    grid-column: 1;
+  }
+
+  #mailEditor.rn-compose-v8 {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  #mailEditor.rn-compose-v8 > form > md-toolbar,
+  #mailEditor.rn-compose-v8 > form > md-toolbar .md-toolbar-tools {
+    min-height: 64px !important;
+    height: 64px !important;
+  }
+
+  #mailEditor.rn-compose-v8 > form > md-toolbar .md-toolbar-tools {
+    padding: 0 8px !important;
+    gap: 3px;
+  }
+
+  .rn-compose-heading > span {
+    display: none;
+  }
+
+  .rn-compose-heading > strong {
+    margin: 0;
+    font-size: 0.76rem;
+  }
+
+  #mailEditor.rn-compose-v8 > form > md-toolbar .rn-compose-save,
+  #mailEditor.rn-compose-v8 > form > md-toolbar .rn-compose-close {
+    min-width: 38px !important;
+    padding: 0 !important;
+  }
+
+  #mailEditor.rn-compose-v8 .rn-compose-send {
+    min-width: 42px !important;
+    padding: 0 9px !important;
+  }
+
+  #mailEditor.rn-compose-v8 .rn-button-label {
+    display: none;
+  }
+
+  #mailEditor.rn-compose-v8 md-dialog-content > header.sg-padded {
+    padding: 10px 14px 7px !important;
+  }
+
+  #mailEditor.rn-compose-v8 .ck-editor__editable {
+    padding: 18px !important;
+  }
+
+  .rn-recipient-trust {
+    display: none;
+  }
+
+  .rn-recipient-suggestion {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rn-account-pill,
+  .rn-back-mail,
+  .rn-shell-brand,
+  .rn-avatar-action {
+    transition: none !important;
+  }
+
+  .rn-shake {
+    animation: none !important;
+  }
+}
+
+/* Specificity guard for the native SOGo toolbar sizing rules. */
+html body[ng-app="SOGo.MailerUI"].rn-mail-list-v8 main .view-list.hide-print > md-toolbar.md-accent,
+html body[ng-app="SOGo.MailerUI"].rn-mail-list-v8 main .view-list.hide-print > md-toolbar.md-hue-1,
+html body[ng-app="SOGo.MailerUI"].rn-mail-list-v8 main .view-list.hide-print > md-toolbar.advanced-search-clickable-toolbar {
+  min-height: 46px !important;
+  height: 46px !important;
+  margin-top: 7px !important;
+  margin-bottom: 4px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+html body[ng-app="SOGo.MailerUI"].rn-mail-list-v8 main .view-list.hide-print > md-toolbar .md-toolbar-tools {
+  min-height: 46px !important;
+  height: 46px !important;
+}
+
+/* Keep the RN brand on the same horizontal axis as the compose action. */
+html body[ng-app^="SOGo"] md-sidenav.md-sidenav-left > md-toolbar.rn-shell-branded {
+  justify-content: center !important;
+}
+
+html body[ng-app^="SOGo"] .rn-shell-brand {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+html body[ng-app^="SOGo"] .rn-shell-brand img {
+  object-position: center !important;
+}
+
+/* Remove the redundant mailbox identity row below the compose action. */
+body[ng-app="SOGo.MailerUI"] .sg-account-section > md-list:first-child {
+  display: none !important;
+}
+
+/* Native RN profile photos sit above SOGo's safe fallback avatar. */
+.rn-account-avatar-rendered,
+.rn-profile-avatar,
+.rn-suggestion-avatar,
+.rn-recipient-preview {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.rn-native-profile-photo {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 50% !important;
+}
+
+.rn-native-profile-photo[hidden] {
+  display: none !important;
+}
+
+.rn-avatar-controls {
+  grid-template-columns: minmax(220px, 1fr) auto !important;
+  gap: 8px 10px !important;
+}
+
+.rn-photo-input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.rn-avatar-controls .rn-avatar-action {
+  grid-column: 1 / -1 !important;
+  border: 0;
+  cursor: pointer;
+}
+
+.rn-photo-remove {
+  grid-column: 1 / -1;
+  min-height: 34px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #6c7480;
+  background: transparent;
+  border: 0;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 0.60rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.rn-photo-remove[hidden] {
+  display: none !important;
+}
+
+.rn-photo-remove:hover,
+.rn-photo-remove:focus-visible {
+  color: #b23844;
+  background: rgba(178, 56, 68, 0.08);
+  outline: 2px solid rgba(178, 56, 68, 0.16);
+  outline-offset: 1px;
+}
+
+.rn-photo-remove md-icon {
+  width: 17px !important;
+  height: 17px !important;
+  color: currentColor !important;
+  font-size: 17px !important;
+}
+
+.rn-photo-upload-status {
+  grid-column: 1 / -1;
+  min-height: 16px;
+  color: #607987;
+  font-size: 0.57rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.rn-photo-upload-status.rn-photo-success {
+  color: #17744b;
+}
+
+.rn-photo-upload-status.rn-photo-error {
+  color: #b23844;
+}
+
+/* Image crop workspace: the dimmed area mirrors the final circular avatar. */
+body.rn-cropper-open {
+  overflow: hidden !important;
+}
+
+.rn-cropper-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 15000;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 16, 29, 0.72);
+  backdrop-filter: blur(5px);
+}
+
+.rn-cropper-panel {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  background: #ffffff;
+  border: 1px solid rgba(217, 230, 238, 0.92);
+  border-radius: 22px;
+  box-shadow: 0 30px 90px rgba(4, 16, 29, 0.40);
+}
+
+.rn-cropper-header {
+  padding: 21px 22px 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(115deg, #071827 0%, #0a3554 58%, #14779a 100%);
+  border-radius: 21px 21px 0 0;
+}
+
+.rn-cropper-heading > span {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.56rem;
+  font-weight: 780;
+  letter-spacing: 0.12em;
+}
+
+.rn-cropper-heading h2 {
+  margin: 4px 0 5px;
+  color: #ffffff;
+  font-size: 1.08rem;
+  font-weight: 740;
+  letter-spacing: -0.02em;
+}
+
+.rn-cropper-heading p {
+  max-width: 390px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.65rem;
+  line-height: 1.48;
+}
+
+.rn-cropper-close {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+.rn-cropper-close md-icon {
+  color: #ffffff !important;
+}
+
+.rn-cropper-close:hover,
+.rn-cropper-close:focus-visible {
+  background: rgba(255, 255, 255, 0.20);
+  outline: 2px solid rgba(255, 255, 255, 0.36);
+  outline-offset: 2px;
+}
+
+.rn-cropper-workspace {
+  padding: 22px 26px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f6fafc;
+}
+
+.rn-cropper-stage {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-color: #dfe9ee;
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.42) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.42) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.42) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.42) 75%);
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  background-size: 20px 20px;
+  border: 1px solid #c8dce6;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(4, 16, 29, 0.13);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.rn-cropper-stage.rn-is-dragging {
+  cursor: grabbing;
+}
+
+.rn-cropper-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.rn-cropper-mask {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 999px rgba(4, 16, 29, 0.56),
+    inset 0 0 0 1px rgba(4, 16, 29, 0.18),
+    inset 0 0 24px rgba(4, 16, 29, 0.10);
+}
+
+.rn-cropper-mask::before,
+.rn-cropper-mask::after {
+  content: "";
+  position: absolute;
+  opacity: 0.36;
+  background: #ffffff;
+}
+
+.rn-cropper-mask::before {
+  left: 50%;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+}
+
+.rn-cropper-mask::after {
+  top: 50%;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+}
+
+.rn-cropper-zoom {
+  width: 320px;
+  max-width: 100%;
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 24px 1fr 24px;
+  align-items: center;
+  gap: 10px;
+}
+
+.rn-cropper-zoom md-icon {
+  width: 20px !important;
+  height: 20px !important;
+  color: #5d7685 !important;
+  font-size: 20px !important;
+}
+
+.rn-cropper-zoom input[type="range"] {
+  width: 100%;
+  accent-color: var(--rn-blue);
+  cursor: pointer;
+}
+
+.rn-cropper-status {
+  min-height: 22px;
+  padding: 7px 22px 0;
+  color: #526b7a;
+  font-size: 0.62rem;
+  text-align: center;
+}
+
+.rn-cropper-actions {
+  padding: 13px 22px 21px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.rn-cropper-cancel,
+.rn-cropper-save {
+  min-height: 42px;
+  padding: 0 17px;
+  border-radius: 11px;
+  font-family: inherit;
+  font-size: 0.66rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rn-cropper-cancel {
+  color: #536d7b;
+  background: #ffffff;
+  border: 1px solid #d7e5ed;
+}
+
+.rn-cropper-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffffff;
+  background: linear-gradient(105deg, var(--rn-blue), #258dc8);
+  border: 0;
+  box-shadow: 0 7px 18px rgba(26, 111, 174, 0.22);
+}
+
+.rn-cropper-save md-icon {
+  width: 18px !important;
+  height: 18px !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+}
+
+.rn-cropper-save:hover,
+.rn-cropper-save:focus-visible {
+  background: linear-gradient(105deg, #145f94, #1c83bc);
+  outline: 3px solid rgba(71, 171, 225, 0.22);
+  outline-offset: 2px;
+}
+
+.rn-cropper-save[disabled] {
+  opacity: 0.55;
+  cursor: wait;
+  box-shadow: none;
+}
+
+.rn-cropper-cancel:hover,
+.rn-cropper-cancel:focus-visible {
+  color: var(--rn-blue);
+  background: #f4fafe;
+  border-color: rgba(71, 171, 225, 0.52);
+  outline: 2px solid rgba(71, 171, 225, 0.16);
+  outline-offset: 1px;
+}
+
+@media (max-width: 599px) {
+  .rn-cropper-backdrop {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .rn-cropper-panel {
+    width: 100vw;
+    max-height: 100vh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .rn-cropper-header {
+    border-radius: 0;
+  }
+
+  .rn-cropper-workspace {
+    padding-inline: 18px;
+  }
+
+  .rn-cropper-stage {
+    width: min(320px, calc(100vw - 36px));
+  }
+
+  .rn-cropper-actions {
+    padding-inline: 18px;
+  }
+
+  .rn-cropper-cancel,
+  .rn-cropper-save {
+    flex: 1 1 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rn-cropper-backdrop {
+    backdrop-filter: none;
+  }
+}
+
+/* Focused message reader: Gmail-like structure with RN visual language. */
+html.rn-message-route body[ng-app="SOGo.MailerUI"] section[ui-view="mailbox"],
+body[ng-app="SOGo.MailerUI"].rn-message-route section[ui-view="mailbox"],
+body[ng-app="SOGo.MailerUI"].rn-message-reading section[ui-view="mailbox"] {
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+html.rn-message-route body[ng-app="SOGo.MailerUI"] .view-list,
+body[ng-app="SOGo.MailerUI"].rn-message-route .view-list,
+body[ng-app="SOGo.MailerUI"].rn-message-reading .view-list {
+  display: none !important;
+  transition: none !important;
+}
+
+html.rn-message-route body[ng-app="SOGo.MailerUI"] #detailView,
+body[ng-app="SOGo.MailerUI"].rn-message-route #detailView,
+body[ng-app="SOGo.MailerUI"].rn-message-reading #detailView {
+  position: relative !important;
+  inset: auto !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background: #f6f8fa !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html.rn-message-route body[ng-app="SOGo.MailerUI"] #detailView::after,
+body[ng-app="SOGo.MailerUI"].rn-message-route #detailView::after,
+body[ng-app="SOGo.MailerUI"].rn-message-reading #detailView::after {
+  display: none !important;
+}
+
+body[ng-app="SOGo.MailerUI"].rn-message-loading section[ui-view="mailbox"] {
+  position: relative !important;
+}
+
+body[ng-app="SOGo.MailerUI"].rn-message-loading section[ui-view="mailbox"]::after {
+  content: "";
+  position: absolute;
+  z-index: 30;
+  top: 76px;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  pointer-events: none;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(#edf2f5, #edf2f5),
+    linear-gradient(#dfe7eb, #dfe7eb),
+    linear-gradient(#e9eef1, #e9eef1),
+    linear-gradient(#edf2f4, #edf2f4),
+    linear-gradient(#edf2f4, #edf2f4);
+  background-repeat: no-repeat;
+  background-position:
+    0 51px,
+    32px 82px,
+    32px 116px,
+    32px 170px,
+    32px 198px;
+  background-size:
+    100% 1px,
+    min(42%, 520px) 18px,
+    min(28%, 340px) 12px,
+    min(70%, 760px) 11px,
+    min(55%, 600px) 11px;
+  border: 1px solid #e1e7eb;
+  border-radius: 18px;
+  box-shadow: 0 3px 14px rgba(10, 37, 64, 0.06);
+  box-sizing: border-box;
+}
+
+body.rn-message-reading #detailView > .sg-reversible,
+body.rn-message-reading #detailView .sg-face {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+}
+
+body.rn-message-reading #detailView .sg-face > md-card {
+  width: calc(100% - 24px) !important;
+  height: calc(100% - 24px) !important;
+  min-height: 0 !important;
+  margin: 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+  border: 1px solid #e1e7eb !important;
+  border-radius: 18px !important;
+  box-shadow: 0 3px 14px rgba(10, 37, 64, 0.06) !important;
+}
+
+body.rn-message-reading #detailView .sg-face > md-card > md-card-actions {
+  flex: 0 0 52px !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  margin: 0 !important;
+  padding: 0 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  background: #fbfcfd !important;
+  border-bottom: 1px solid #e7ecef !important;
+  box-sizing: border-box !important;
+}
+
+body.rn-message-reading #detailView md-card-actions > button,
+body.rn-message-reading #detailView md-card-actions > md-menu > button,
+body.rn-message-reading .rn-message-back {
+  flex: 0 0 38px !important;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  margin: 0 1px !important;
+  padding: 0 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  color: #4c606d !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
+body.rn-message-reading #detailView md-card-actions > button:hover,
+body.rn-message-reading #detailView md-card-actions > md-menu > button:hover,
+body.rn-message-reading .rn-message-back:hover,
+body.rn-message-reading .rn-message-back:focus-visible {
+  color: #174f75 !important;
+  background: #eaf3f8 !important;
+  outline: none !important;
+}
+
+body.rn-message-reading .rn-message-back {
+  margin-right: auto !important;
+  font-family: inherit !important;
+}
+
+body.rn-message-reading #detailView md-card-actions md-icon,
+body.rn-message-reading .rn-message-back md-icon {
+  width: 21px !important;
+  height: 21px !important;
+  color: currentColor !important;
+  font-size: 21px !important;
+  line-height: 21px !important;
+}
+
+body.rn-message-reading #detailView button[ng-click="toggleCenter()"] {
+  display: none !important;
+}
+
+body.rn-message-reading #detailView .sg-face md-card-actions > button.ng-hide,
+body.rn-message-reading #detailView .sg-face button[ng-click="viewer.close()"],
+body.rn-message-reading #detailView .sg-face > md-card > md-card-content > .sg-padded.ng-hide {
+  display: none !important;
+}
+
+body.rn-message-reading #detailView .sg-face > md-card > md-card-content {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  color: #202124 !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+}
+
+body.rn-message-reading #detailView .sg-face > md-card > md-card-content > .sg-padded {
+  width: 100% !important;
+  min-height: 66px !important;
+  padding: 18px 32px 8px !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 8px 20px !important;
+  box-sizing: border-box !important;
+}
+
+body.rn-message-reading #detailView .sg-md-headline {
+  min-width: 0 !important;
+  margin: 0 !important;
+  color: #202124 !important;
+  font-size: clamp(20px, 1.45vw, 24px) !important;
+  font-weight: 450 !important;
+  line-height: 1.32 !important;
+  letter-spacing: -0.018em !important;
+}
+
+body.rn-message-reading #detailView time.msg-date {
+  margin: 0 !important;
+  color: #6d777d !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  white-space: nowrap !important;
+}
+
+body.rn-message-reading #detailView .sg-face > md-card > md-card-content > .layout-wrap.layout-row {
+  width: 100% !important;
+  min-height: 64px !important;
+  padding: 0 32px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 18px !important;
+  box-sizing: border-box !important;
+}
+
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row > .pseudo-input-container--compact {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row > .msg-recipients {
+  flex: 0 1 360px !important;
+  width: auto !important;
+  min-width: 220px !important;
+  max-width: 38% !important;
+  margin-left: auto !important;
+}
+
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row sg-avatar-image.md-tile-left,
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row sg-avatar-image .sg-icon-badge-container,
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row sg-avatar-image .sg-icon-badge-container > md-icon:first-child {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  min-width: 42px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  font-size: 42px !important;
+  line-height: 42px !important;
+}
+
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row .layout-align-start-center > div:last-child {
+  min-width: 0 !important;
+  margin-left: 12px !important;
+  color: #202124 !important;
+  font-size: 14px !important;
+  font-weight: 650 !important;
+}
+
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row .md-caption {
+  color: #61717b !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row .pseudo-input-label {
+  color: #77868e !important;
+  font-size: 10px !important;
+}
+
+body.rn-message-reading #detailView md-card-content > md-divider {
+  width: calc(100% - 64px) !important;
+  margin: 0 32px !important;
+  border-color: #edf0f2 !important;
+}
+
+body.rn-message-reading #detailView .msg-body {
+  min-height: 120px !important;
+  padding: 24px clamp(28px, 4vw, 72px) 30px !important;
+  color: #202124 !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  box-sizing: border-box !important;
+}
+
+body.rn-message-reading #detailView .msg-body > * {
+  max-width: 100% !important;
+}
+
+.rn-message-footer-actions {
+  padding: 4px clamp(28px, 4vw, 72px) 38px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rn-message-footer-button {
+  min-height: 38px;
+  padding: 0 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #405663;
+  background: #ffffff;
+  border: 1px solid #cfd9df;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.rn-message-footer-button md-icon {
+  width: 18px !important;
+  height: 18px !important;
+  color: currentColor !important;
+  font-size: 18px !important;
+  line-height: 18px !important;
+}
+
+.rn-message-footer-button:hover,
+.rn-message-footer-button:focus-visible {
+  color: #175f8f;
+  background: #eef7fb;
+  border-color: #92c9e3;
+  outline: 2px solid rgba(71, 171, 225, 0.18);
+  outline-offset: 1px;
+}
+
+@media (max-width: 799px) {
+  body[ng-app="SOGo.MailerUI"].rn-message-loading section[ui-view="mailbox"]::after {
+    top: 70px;
+    right: 6px;
+    bottom: 6px;
+    left: 6px;
+    border-radius: 14px;
+    background-position:
+      0 51px,
+      18px 80px,
+      18px 112px,
+      18px 162px,
+      18px 188px;
+  }
+
+  body.rn-message-reading #detailView .sg-face > md-card {
+    width: calc(100% - 12px) !important;
+    height: calc(100% - 12px) !important;
+    margin: 6px !important;
+    border-radius: 14px !important;
+  }
+
+  body.rn-message-reading #detailView .sg-face > md-card > md-card-actions {
+    padding-inline: 8px !important;
+    overflow-x: auto !important;
+  }
+
+  body.rn-message-reading #detailView .sg-face > md-card > md-card-content > .sg-padded {
+    padding: 16px 18px 8px !important;
+    grid-template-columns: 1fr !important;
+    gap: 5px !important;
+  }
+
+  body.rn-message-reading #detailView time.msg-date {
+    white-space: normal !important;
+  }
+
+  body.rn-message-reading #detailView .sg-face > md-card > md-card-content > .layout-wrap.layout-row {
+    padding: 0 18px 12px !important;
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  body.rn-message-reading #detailView md-card-content > .layout-wrap.layout-row > .msg-recipients {
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin-left: 54px !important;
+  }
+
+  body.rn-message-reading #detailView md-card-content > md-divider {
+    width: calc(100% - 36px) !important;
+    margin-inline: 18px !important;
+  }
+
+  body.rn-message-reading #detailView .msg-body {
+    padding: 20px 18px 26px !important;
+  }
+
+  .rn-message-footer-actions {
+    padding: 4px 18px 28px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 479px) {
+  body.rn-message-reading #detailView md-card-actions button[aria-label="Mark as read"],
+  body.rn-message-reading #detailView md-card-actions button[aria-label="Reencaminhar"],
+  body.rn-message-reading #detailView md-card-actions button[aria-label="'Open in New Mail Window'.asSafeJSString"] {
+    display: none !important;
+  }
+
+  .rn-message-footer-button {
+    flex: 1 1 auto;
+  }
+}

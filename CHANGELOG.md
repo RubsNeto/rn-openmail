@@ -4,6 +4,27 @@ All notable changes are documented here. This project follows [Semantic Versioni
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-08-26
+
+### Added
+
+- Focused Gmail-inspired message reader with back, reply and forward actions.
+- Route-synchronous loading state that prevents the previous split view from flashing.
+- Authenticated native profile-photo upload, circular crop, local storage and removal.
+- Refined composer, recipient avatars and internal/external address guidance.
+- Centered sidebar brand, compact inbox chrome and direct Preferences return action.
+
+### Changed
+
+- Local public configuration is now shared with the SOGo browser integration.
+- Installer discovers the PHP-FPM UID/GID, validates photo storage and force-recreates SOGo after bind-mounted asset updates.
+- Validation and rollback cover the new endpoint while preserving uploaded photos as user data.
+
+### Security
+
+- Profile images are MIME/dimension checked, re-encoded as JPEG and stripped of source metadata.
+- Upload and deletion require an authenticated mailcow user session and same-origin mutation headers.
+
 ## [1.0.0] - 2026-08-26
 
 ### Added
@@ -16,5 +37,6 @@ All notable changes are documented here. This project follows [Semantic Versioni
 - Standalone administrator preview.
 - CI, CodeQL, secret scanning and community health files.
 
-[Unreleased]: https://github.com/RubsNeto/rn-mail-theme/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/RubsNeto/rn-mail-theme/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/RubsNeto/rn-mail-theme/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/RubsNeto/rn-mail-theme/releases/tag/v1.0.0
