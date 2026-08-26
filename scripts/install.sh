@@ -9,6 +9,12 @@ backup_root="${RN_MAIL_BACKUP_ROOT:-/opt/rn-mail-theme-backups}"
 config_file="${RN_MAIL_CONFIG_FILE:-${repo_root}/config/rn-config.js}"
 backup_dir=""
 mutation_started=0
+sogo_script_tmp=""
+
+cleanup_temp() {
+  [[ -z "${sogo_script_tmp}" ]] || rm -f -- "${sogo_script_tmp}"
+}
+trap cleanup_temp EXIT
 
 die() {
   printf 'ERROR: %s\n' "$*" >&2
@@ -39,6 +45,7 @@ required_files=(
   examples/docker-compose.override.yml
   src/mailcow/rn-suite.css
   src/mailcow/rn-suite.js
+  src/mailcow/rn-profile-photo.php
   src/sogo/custom-sogo.js
   src/sogo/custom-theme.css
   src/sogo/custom-theme.js
@@ -65,6 +72,7 @@ managed_paths=(
   data/web/css/build/0081-rn-suite.css
   data/web/js/build/098-rn-config.js
   data/web/js/build/099-rn-suite.js
+  data/web/rn-profile-photo.php
   data/web/img/rn-logo.png
   data/web/img/rn-glow.svg
   data/web/fonts/rn-montserrat.woff2
@@ -83,6 +91,19 @@ managed_paths=(
 )
 
 cd "${mail_root}"
+php_uid="$(docker compose exec -T php-fpm-mailcow id -u www-data)" || die 'unable to resolve the PHP-FPM user id'
+php_gid="$(docker compose exec -T php-fpm-mailcow id -g www-data)" || die 'unable to resolve the PHP-FPM group id'
+[[ "${php_uid}" =~ ^[0-9]+$ && "${php_gid}" =~ ^[0-9]+$ ]] || die 'invalid PHP-FPM user or group id'
+
+sogo_script_tmp="$(mktemp)"
+chmod 0600 "${sogo_script_tmp}"
+{
+  printf '%s\n' '/* Local public configuration; do not store secrets here. */'
+  cat "${config_file}"
+  printf '\n'
+  cat "${repo_root}/src/sogo/custom-sogo.js"
+} > "${sogo_script_tmp}"
+
 : > "${backup_dir}/EXISTING_PATHS"
 : > "${backup_dir}/MISSING_PATHS"
 for relative_path in "${managed_paths[@]}"; do
@@ -121,10 +142,12 @@ trap rollback_on_error ERR
 mutation_started=1
 install -d -m 0755 \
   data/web/css/build data/web/js/build data/web/img data/web/fonts data/conf/sogo
+install -d -o "${php_uid}" -g "${php_gid}" -m 0750 data/web/img/rn-profile-photos
 
 install -m 0644 "${repo_root}/src/mailcow/rn-suite.css" data/web/css/build/0081-rn-suite.css
 install -m 0644 "${config_file}" data/web/js/build/098-rn-config.js
 install -m 0644 "${repo_root}/src/mailcow/rn-suite.js" data/web/js/build/099-rn-suite.js
+install -m 0644 "${repo_root}/src/mailcow/rn-profile-photo.php" data/web/rn-profile-photo.php
 install -m 0644 "${repo_root}/assets/brand/rn-logo.png" data/web/img/rn-logo.png
 install -m 0644 "${repo_root}/assets/brand/rn-glow.svg" data/web/img/rn-glow.svg
 install -m 0644 "${repo_root}/assets/fonts/rn-montserrat.woff2" data/web/fonts/rn-montserrat.woff2
@@ -132,7 +155,7 @@ install -m 0644 "${repo_root}/assets/brand/rn-icon.png" data/web/favicon.png
 
 install -m 0644 "${repo_root}/src/sogo/custom-theme.css" data/conf/sogo/custom-theme.css
 install -m 0644 "${repo_root}/src/sogo/custom-theme.js" data/conf/sogo/custom-theme.js
-install -m 0644 "${repo_root}/src/sogo/custom-sogo.js" data/conf/sogo/custom-sogo.js
+install -m 0644 "${sogo_script_tmp}" data/conf/sogo/custom-sogo.js
 install -m 0644 "${repo_root}/assets/brand/custom-favicon.ico" data/conf/sogo/custom-favicon.ico
 install -m 0644 "${repo_root}/assets/brand/custom-fulllogo.svg" data/conf/sogo/custom-fulllogo.svg
 install -m 0644 "${repo_root}/assets/brand/rn-logo.png" data/conf/sogo/custom-fulllogo.png
@@ -144,7 +167,9 @@ install -m 0644 "${repo_root}/assets/fonts/rn-material-symbols-outlined.woff2" d
 install -m 0644 "${override_source}" docker-compose.override.yml
 
 docker compose config --quiet
-docker compose up -d --no-deps sogo-mailcow
+# `install` replaces bind-mounted file inodes, so SOGo must be recreated to
+# mount the new assets instead of retaining the previous version.
+docker compose up -d --force-recreate --no-deps sogo-mailcow
 docker compose restart memcached-mailcow
 docker compose ps --format json > "${backup_dir}/compose-after.json" || true
 chmod 0600 "${backup_dir}/compose-after.json"

@@ -39,7 +39,7 @@ if tar -tzf "${backup_dir}/interface-before.tgz" | awk '
   die 'unsafe path found in backup archive'
 fi
 
-allowed_paths='|docker-compose.override.yml|data/web/css/build/0081-rn-suite.css|data/web/js/build/098-rn-config.js|data/web/js/build/099-rn-suite.js|data/web/img/rn-logo.png|data/web/img/rn-glow.svg|data/web/fonts/rn-montserrat.woff2|data/web/favicon.png|data/conf/sogo/custom-theme.css|data/conf/sogo/custom-theme.js|data/conf/sogo/custom-sogo.js|data/conf/sogo/custom-favicon.ico|data/conf/sogo/custom-fulllogo.svg|data/conf/sogo/custom-fulllogo.png|data/conf/sogo/custom-shortlogo.svg|data/conf/sogo/rn-icon.png|data/conf/sogo/rn-glow.svg|data/conf/sogo/rn-montserrat.woff2|data/conf/sogo/rn-material-symbols-outlined.woff2|'
+allowed_paths='|docker-compose.override.yml|data/web/css/build/0081-rn-suite.css|data/web/js/build/098-rn-config.js|data/web/js/build/099-rn-suite.js|data/web/rn-profile-photo.php|data/web/img/rn-logo.png|data/web/img/rn-glow.svg|data/web/fonts/rn-montserrat.woff2|data/web/favicon.png|data/conf/sogo/custom-theme.css|data/conf/sogo/custom-theme.js|data/conf/sogo/custom-sogo.js|data/conf/sogo/custom-favicon.ico|data/conf/sogo/custom-fulllogo.svg|data/conf/sogo/custom-fulllogo.png|data/conf/sogo/custom-shortlogo.svg|data/conf/sogo/rn-icon.png|data/conf/sogo/rn-glow.svg|data/conf/sogo/rn-montserrat.woff2|data/conf/sogo/rn-material-symbols-outlined.woff2|'
 
 cd "${mail_root}"
 while IFS= read -r relative_path; do
@@ -52,6 +52,6 @@ done < "${backup_dir}/MISSING_PATHS"
 
 tar -xzf "${backup_dir}/interface-before.tgz"
 docker compose config --quiet
-docker compose up -d --no-deps sogo-mailcow
+docker compose up -d --force-recreate --no-deps sogo-mailcow
 docker compose restart memcached-mailcow
 printf 'Rollback completed from %s\n' "${backup_dir}"
