@@ -9,6 +9,7 @@ const failures = [];
 const required = [
   '.github/workflows/ci.yml',
   '.github/workflows/codeql.yml',
+  'AGENTS.md',
   'CHANGELOG.md',
   'CODE_OF_CONDUCT.md',
   'CONTRIBUTING.md',
@@ -67,6 +68,8 @@ const forbiddenLiterals = [
   ['rnservicos.com.br', 'private domain'],
   ['rnetecnologia.com.br', 'private domain'],
   ['rubsneto/email', 'private repository'],
+  ['rubsneto/rn-mail-theme', 'retired public repository name'],
+  ['rn mail theme', 'retired product name'],
   ['mailcow-rn-theme-stage', 'private staging path']
 ];
 const forbiddenPatterns = [
@@ -115,6 +118,7 @@ for (const path of ['src/mailcow/rn-suite.css', 'src/sogo/custom-theme.css']) {
 const configExample = readFileSync(join(root, 'config/rn-config.example.js'), 'utf8');
 if (!configExample.includes("defaultDomain: 'example.com'")) fail('configuration example must use example.com');
 if (!configExample.includes("directoryLabel: 'Internal directory'")) fail('configuration example must include a generic directory label');
+if (!configExample.includes('window.RN_OPENMAIL_CONFIG')) fail('configuration example must expose RN_OPENMAIL_CONFIG');
 if (!readFileSync(join(root, '.gitignore'), 'utf8').includes('config/rn-config.js')) {
   fail('.gitignore must exclude config/rn-config.js');
 }
@@ -149,7 +153,7 @@ for (const [path, identifier] of spdxChecks) {
 }
 
 const installer = readFileSync(join(root, 'scripts/install.sh'), 'utf8');
-for (const marker of ['rn-profile-photo.php', 'rn-profile-photos', '--force-recreate', 'sogo_script_tmp']) {
+for (const marker of ['rn-profile-photo.php', 'rn-profile-photos', '--force-recreate', 'sogo_script_tmp', 'RN_OPENMAIL_ROOT']) {
   if (!installer.includes(marker)) fail(`installer integration marker is missing: ${marker}`);
 }
 
@@ -159,10 +163,16 @@ for (const marker of [
   'rn-message-loading',
   'openProfileCropper',
   'MAIL_CONFIG.defaultDomain',
+  'window.RN_OPENMAIL_CONFIG',
   'function destroyCompiledAvatars',
   'rn-gravatar-toggle'
 ]) {
   if (!sogoScript.includes(marker)) fail(`SOGo integration marker is missing: ${marker}`);
+}
+
+const agentRunbook = readFileSync(join(root, 'AGENTS.md'), 'utf8');
+for (const marker of ['Non-negotiable safety rules', 'scripts/install.sh', 'scripts/validate.sh', 'scripts/rollback.sh', 'Required final report']) {
+  if (!agentRunbook.includes(marker)) fail(`AI installation runbook marker is missing: ${marker}`);
 }
 
 const profileEndpoint = readFileSync(join(root, 'src/mailcow/rn-profile-photo.php'), 'utf8');

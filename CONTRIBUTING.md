@@ -1,10 +1,10 @@
 # Contributing
 
-Thanks for helping improve RN Mail Theme.
+Thanks for helping improve RN OpenMail.
 
 ## Before you start
 
-- Use [GitHub Discussions](https://github.com/RubsNeto/rn-mail-theme/discussions) for questions and proposals that are not yet actionable.
+- Use [GitHub Discussions](https://github.com/RubsNeto/rn-openmail/discussions) for questions and proposals that are not yet actionable.
 - Search existing issues before opening a new one.
 - Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md), never in a public issue.
 - Keep production credentials, domains, customer data and mailcow configuration out of issues, screenshots and commits.

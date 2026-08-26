@@ -556,7 +556,7 @@ md-dialog-actions .md-button:last-child {
   }
 }
 
-/* RN Mail v5 final alignment corrections. */
+/* RN OpenMail v5 final alignment corrections. */
 body[ng-app="SOGo.MailerUI"] md-fab-speed-dial.sg-fab-bottom-center > md-fab-actions {
   display: none !important;
 }
@@ -573,7 +573,7 @@ body[ng-app="SOGo.MailerUI"] .view-list:not(:has(~ #detailView:not(.sg-close) > 
   max-width: none !important;
 }
 
-/* RN Mail workspace v5 — Gmail-like information architecture, outline icons and 8px rhythm. */
+/* RN OpenMail workspace v5 — Gmail-like information architecture, outline icons and 8px rhythm. */
 @font-face {
   font-family: "RN Material Symbols Outlined";
   src: url("../fonts/rn-material-symbols-outlined.woff2") format("woff2");
@@ -1384,7 +1384,7 @@ md-sidenav.md-sidenav-left > md-toolbar .md-icon-button {
   }
 
   md-toolbar.toolbar-main .sg-toolbar-group-1::after {
-    content: "RN Mail";
+    content: "RN OpenMail";
     margin-left: 8px;
     color: var(--rn-navy);
     font-size: 0.88rem;
@@ -1394,7 +1394,7 @@ md-sidenav.md-sidenav-left > md-toolbar .md-icon-button {
   }
 }
 
-/* RN Mail workspace v4 — lighter, branded and closer to a modern mail client. */
+/* RN OpenMail workspace v4 — lighter, branded and closer to a modern mail client. */
 md-toolbar.toolbar-main {
   min-height: 56px !important;
   background: rgba(255, 255, 255, 0.98) !important;
@@ -1592,7 +1592,7 @@ md-sidenav.md-sidenav-left > md-toolbar .md-caption {
   }
 }
 
-/* RN Mail avatar v6: true circular photo crop and centered fallback symbol. */
+/* RN OpenMail avatar v6: true circular photo crop and centered fallback symbol. */
 body[ng-app^="SOGo"] sg-avatar-image {
   position: relative !important;
   box-sizing: border-box !important;
@@ -1643,7 +1643,7 @@ body[ng-app="SOGo.MailerUI"] md-sidenav.md-sidenav-left > md-toolbar.sg-padded.m
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px rgba(71, 171, 225, 0.24) !important;
 }
 
-/* RN Mail workspace v8: brand shell, account profile and compact inbox. */
+/* RN OpenMail workspace v8: brand shell, account profile and compact inbox. */
 body[ng-app^="SOGo"] md-sidenav.md-sidenav-left > md-toolbar.rn-shell-branded {
   position: relative !important;
   min-height: 64px !important;

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: GPL-3.0-only
 set -Eeuo pipefail
 
-mail_root_input="${RN_MAIL_ROOT:-/opt/mailcow-dockerized}"
-backup_root_input="${RN_MAIL_BACKUP_ROOT:-/opt/rn-mail-theme-backups}"
+mail_root_input="${RN_OPENMAIL_ROOT:-${RN_MAIL_ROOT:-/opt/mailcow-dockerized}}"
+backup_root_input="${RN_OPENMAIL_BACKUP_ROOT:-${RN_MAIL_BACKUP_ROOT:-/opt/rn-openmail-backups}}"
 backup_input="${1:-}"
 
 die() {
@@ -20,7 +20,7 @@ die() {
 mail_root="$(cd "${mail_root_input}" && pwd -P)"
 backup_root="$(cd "${backup_root_input}" && pwd -P)"
 backup_dir="$(cd "${backup_input}" && pwd -P)"
-[[ "${mail_root}" != '/' ]] || die 'refusing to use / as RN_MAIL_ROOT'
+[[ "${mail_root}" != '/' ]] || die 'refusing to use / as RN_OPENMAIL_ROOT'
 case "${backup_dir}" in
   "${backup_root}"/*) ;;
   *) die "backup must be located below ${backup_root}" ;;

@@ -4,6 +4,24 @@ All notable changes are documented here. This project follows [Semantic Versioni
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-08-26
+
+### Added
+
+- `AGENTS.md` with a safety-first, deterministic VPS installation and rollback runbook for AI coding agents.
+- README guidance and a reusable prompt for delegating installation without exposing credentials.
+
+### Changed
+
+- Project and product renamed from the previous theme name to **RN OpenMail**.
+- Public repository URLs and clone instructions now use `RubsNeto/rn-openmail`.
+- `RN_OPENMAIL_CONFIG` and `RN_OPENMAIL_*` are now the preferred configuration interfaces.
+- Default backup directory changed to `/opt/rn-openmail-backups`.
+
+### Compatibility
+
+- `RN_MAIL_CONFIG` and the legacy `RN_MAIL_*` environment variables remain supported for existing deployments.
+
 ## [1.1.0] - 2026-08-26
 
 ### Added
@@ -37,6 +55,7 @@ All notable changes are documented here. This project follows [Semantic Versioni
 - Standalone administrator preview.
 - CI, CodeQL, secret scanning and community health files.
 
-[Unreleased]: https://github.com/RubsNeto/rn-mail-theme/compare/v1.1.0...HEAD
-[1.1.0]: https://github.com/RubsNeto/rn-mail-theme/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/RubsNeto/rn-mail-theme/releases/tag/v1.0.0
+[Unreleased]: https://github.com/RubsNeto/rn-openmail/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/RubsNeto/rn-openmail/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/RubsNeto/rn-openmail/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/RubsNeto/rn-openmail/releases/tag/v1.0.0

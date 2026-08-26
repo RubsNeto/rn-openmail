@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-only
-# rn-mail-theme managed example; merge it if you already use an override file.
+# rn-openmail managed example; merge it if you already use an override file.
 services:
   sogo-mailcow:
     volumes:

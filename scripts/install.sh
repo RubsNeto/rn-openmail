@@ -4,9 +4,9 @@ set -Eeuo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 repo_root="$(cd "${script_dir}/.." && pwd -P)"
-mail_root_input="${RN_MAIL_ROOT:-/opt/mailcow-dockerized}"
-backup_root="${RN_MAIL_BACKUP_ROOT:-/opt/rn-mail-theme-backups}"
-config_file="${RN_MAIL_CONFIG_FILE:-${repo_root}/config/rn-config.js}"
+mail_root_input="${RN_OPENMAIL_ROOT:-${RN_MAIL_ROOT:-/opt/mailcow-dockerized}}"
+backup_root="${RN_OPENMAIL_BACKUP_ROOT:-${RN_MAIL_BACKUP_ROOT:-/opt/rn-openmail-backups}}"
+config_file="${RN_OPENMAIL_CONFIG_FILE:-${RN_MAIL_CONFIG_FILE:-${repo_root}/config/rn-config.js}}"
 backup_dir=""
 mutation_started=0
 sogo_script_tmp=""
@@ -24,14 +24,14 @@ die() {
 [[ "${EUID}" -eq 0 ]] || die 'run as root (sudo) so ownership and permissions are preserved'
 [[ -d "${mail_root_input}" ]] || die "mailcow root not found: ${mail_root_input}"
 mail_root="$(cd "${mail_root_input}" && pwd -P)"
-[[ "${mail_root}" != '/' ]] || die 'refusing to use / as RN_MAIL_ROOT'
+[[ "${mail_root}" != '/' ]] || die 'refusing to use / as RN_OPENMAIL_ROOT'
 [[ -f "${mail_root}/mailcow.conf" ]] || die "mailcow.conf not found under ${mail_root}"
 [[ -f "${mail_root}/docker-compose.yml" ]] || die "docker-compose.yml not found under ${mail_root}"
 command -v docker >/dev/null || die 'docker is required'
 command -v tar >/dev/null || die 'tar is required'
 command -v sha256sum >/dev/null || die 'sha256sum is required'
 [[ -s "${config_file}" ]] || die "configuration not found: copy config/rn-config.example.js to config/rn-config.js and edit it"
-grep -q 'window.RN_MAIL_CONFIG' "${config_file}" || die "invalid configuration file: ${config_file}"
+grep -Eq 'window\.RN_(OPENMAIL|MAIL)_CONFIG' "${config_file}" || die "invalid configuration file: ${config_file}"
 
 required_files=(
   assets/brand/custom-favicon.ico
@@ -58,7 +58,7 @@ done
 override_target="${mail_root}/docker-compose.override.yml"
 override_source="${repo_root}/examples/docker-compose.override.yml"
 if [[ -e "${override_target}" ]] && ! cmp -s "${override_source}" "${override_target}"; then
-  if ! grep -q 'rn-mail-theme managed example' "${override_target}"; then
+  if ! grep -Eq 'rn-(openmail|mail-theme) managed example' "${override_target}"; then
     die "an unmanaged docker-compose.override.yml already exists; merge examples/docker-compose.override.yml into it manually"
   fi
 fi
@@ -131,7 +131,7 @@ rollback_on_error() {
   trap - ERR
   if [[ "${mutation_started}" -eq 1 ]]; then
     printf 'Installation failed; restoring %s\n' "${backup_dir}" >&2
-    RN_MAIL_ROOT="${mail_root}" RN_MAIL_BACKUP_ROOT="${backup_root}" \
+    RN_OPENMAIL_ROOT="${mail_root}" RN_OPENMAIL_BACKUP_ROOT="${backup_root}" \
       "${script_dir}/rollback.sh" "${backup_dir}" || \
       printf 'Automatic rollback also failed. Restore manually from %s\n' "${backup_dir}" >&2
   fi
@@ -176,6 +176,6 @@ chmod 0600 "${backup_dir}/compose-after.json"
 
 mutation_started=0
 trap - ERR
-printf 'RN Mail Theme installed successfully.\n'
+printf 'RN OpenMail installed successfully.\n'
 printf 'Backup: %s\n' "${backup_dir}"
-printf 'Validate: RN_MAIL_URL=https://mail.example.com sudo -E %s/validate.sh %s\n' "${script_dir}" "${backup_dir}"
+printf 'Validate: RN_OPENMAIL_URL=https://mail.example.com sudo -E %s/validate.sh %s\n' "${script_dir}" "${backup_dir}"

@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: GPL-3.0-only
 set -Eeuo pipefail
 
-mail_root_input="${RN_MAIL_ROOT:-/opt/mailcow-dockerized}"
+mail_root_input="${RN_OPENMAIL_ROOT:-${RN_MAIL_ROOT:-/opt/mailcow-dockerized}}"
 backup_input="${1:-}"
-base_url="${RN_MAIL_URL:-}"
+base_url="${RN_OPENMAIL_URL:-${RN_MAIL_URL:-}}"
 
 die() {
   printf 'ERROR: %s\n' "$*" >&2
@@ -13,7 +13,7 @@ die() {
 
 [[ -d "${mail_root_input}" ]] || die "mailcow root not found: ${mail_root_input}"
 mail_root="$(cd "${mail_root_input}" && pwd -P)"
-[[ "${mail_root}" != '/' ]] || die 'refusing to use / as RN_MAIL_ROOT'
+[[ "${mail_root}" != '/' ]] || die 'refusing to use / as RN_OPENMAIL_ROOT'
 cd "${mail_root}"
 
 required_local=(
@@ -31,7 +31,7 @@ done
 [[ -d data/web/img/rn-profile-photos ]] || die 'profile-photo directory is missing'
 
 grep -q 'SPDX-License-Identifier: GPL-3.0-only' data/web/css/build/0081-rn-suite.css
-grep -q 'window.RN_MAIL_CONFIG' data/web/js/build/098-rn-config.js
+grep -Eq 'window\.RN_(OPENMAIL|MAIL)_CONFIG' data/web/js/build/098-rn-config.js
 grep -q 'ADMIN_DOMAINS_LANDING' data/web/js/build/099-rn-suite.js
 grep -q 'rn-mail-theme' data/conf/sogo/custom-sogo.js
 grep -q 'function syncMessageRouteState' data/conf/sogo/custom-sogo.js
@@ -72,7 +72,7 @@ if [[ -n "${base_url}" ]]; then
   [[ "${photo_status}" == '401' ]] || die "unexpected unauthenticated profile-photo HTTP ${photo_status}"
   printf '401 %s/rn-profile-photo.php (authentication required)\n' "${base_url}"
 else
-  printf 'Remote checks skipped. Set RN_MAIL_URL=https://mail.example.com to enable them.\n'
+  printf 'Remote checks skipped. Set RN_OPENMAIL_URL=https://mail.example.com to enable them.\n'
 fi
 
 if [[ -n "${backup_input}" ]]; then
@@ -87,4 +87,4 @@ printf 'Recent SOGo errors (informational):\n'
 docker compose logs --since 10m sogo-mailcow 2>&1 \
   | grep -Ei 'fatal|panic|permission denied|connection refused|failed' \
   | tail -n 30 || true
-printf 'RN Mail Theme validation passed.\n'
+printf 'RN OpenMail validation passed.\n'

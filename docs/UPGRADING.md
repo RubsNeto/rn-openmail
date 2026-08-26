@@ -11,6 +11,10 @@
 
 Each installation creates a separate timestamped backup; it does not overwrite earlier backups.
 
+### From 1.1.x to 1.2.x
+
+Version 1.2 renames the product and repository to RN OpenMail. New examples use `RN_OPENMAIL_CONFIG`, `RN_OPENMAIL_*` environment variables and `/opt/rn-openmail-backups`. Existing `RN_MAIL_CONFIG`, `RN_MAIL_*` variables and backup directories remain supported; no immediate configuration migration is required. Update your Git remote to `https://github.com/RubsNeto/rn-openmail.git` if GitHub did not follow the repository redirect automatically.
+
 ### From 1.0.x to 1.1.x
 
 Version 1.1 adds the authenticated profile-photo endpoint and persistent storage directory. The installer creates the directory with the PHP-FPM UID/GID discovered from your running mailcow container and recreates SOGo so updated bind-mounted files are guaranteed to load. Existing theme backups remain valid; profile photos are user data and are not deleted by rollback.
@@ -29,4 +33,4 @@ If the interface is broken, use `scripts/rollback.sh` for theme-managed files. F
 
 ## Compatibility reports
 
-When reporting an incompatibility, include the exact theme release, mailcow commit/version, SOGo version, browser and sanitized reproduction steps. Never attach `mailcow.conf`, private configuration, customer data or raw message content.
+When reporting an incompatibility, include the exact RN OpenMail release, mailcow commit/version, SOGo version, browser and sanitized reproduction steps. Never attach `mailcow.conf`, private configuration, customer data or raw message content.

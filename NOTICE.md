@@ -1,10 +1,10 @@
 # Notices and license map
 
-RN Mail Theme combines original integration code, derived SOGo theme material, fonts and brand assets. License texts are in `LICENSES/`.
+RN OpenMail combines original integration code, derived SOGo theme material, fonts and brand assets. License texts are in `LICENSES/`.
 
 | Material | Location | License / terms |
 | --- | --- | --- |
-| RN mailcow interface, scripts, preview and examples | `src/mailcow/`, `scripts/`, `preview/`, `examples/`, `config/` | GPL-3.0-only |
+| RN OpenMail mailcow interface, scripts, preview and examples | `src/mailcow/`, `scripts/`, `preview/`, `examples/`, `config/` | GPL-3.0-only |
 | SOGo theme and integration files | `src/sogo/` | GPL-2.0-only |
 | Montserrat font subset/binary | `assets/fonts/rn-montserrat.woff2` | SIL Open Font License 1.1 |
 | Material Symbols font binary | `assets/fonts/rn-material-symbols-outlined.woff2` | Apache License 2.0 |
