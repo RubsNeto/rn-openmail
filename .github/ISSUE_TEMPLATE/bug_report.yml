@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a reproducible problem in RN Mail Theme.
+description: Report a reproducible problem in RN OpenMail.
 title: "[Bug]: "
 labels: [bug, triage]
 body:
@@ -10,8 +10,8 @@ body:
   - type: input
     id: theme-version
     attributes:
-      label: Theme version
-      placeholder: v1.0.0
+      label: RN OpenMail version
+      placeholder: v1.2.0
     validations:
       required: true
   - type: input

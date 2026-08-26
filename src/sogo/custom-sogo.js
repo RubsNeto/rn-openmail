@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-only
 // Copyright (C) 2026 RN Design & Serviços
-/* RN Mail workspace enhancements.
+/* RN OpenMail workspace enhancements.
  * Keeps SOGo's native actions and data model, changing only presentation and
  * adding client-side guidance around recipients and profile photos.
  */
 (function () {
   'use strict';
 
-  var MAIL_CONFIG = window.RN_MAIL_CONFIG || {};
-  var PRODUCT_NAME = String(MAIL_CONFIG.brand || 'RN Mail').trim() || 'RN Mail';
+  var MAIL_CONFIG = window.RN_OPENMAIL_CONFIG || window.RN_MAIL_CONFIG || {};
+  var PRODUCT_NAME = String(MAIL_CONFIG.brand || 'RN OpenMail').trim() || 'RN OpenMail';
   var COMPANY_NAME = String(MAIL_CONFIG.company || 'RN Design & Services').trim() || 'RN Design & Services';
   var CONFIGURED_DOMAIN = String(MAIL_CONFIG.defaultDomain || '').trim().toLowerCase();
   var DIRECTORY_LABEL = String(MAIL_CONFIG.directoryLabel || 'Diretório interno').trim() || 'Diretório interno';

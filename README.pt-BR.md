@@ -1,17 +1,17 @@
 <div align="center">
-  <img src="assets/brand/rn-logo.png" alt="RN Mail" width="260">
-  <h1>RN Mail Theme</h1>
-  <p>Uma interface refinada e centrada em domínios para mailcow e SOGo.</p>
+  <img src="assets/brand/rn-logo.png" alt="RN OpenMail" width="260">
+  <h1>RN OpenMail</h1>
+  <p>Uma experiência moderna e open source de webmail para mailcow e SOGo.</p>
 
-  [![CI](https://github.com/RubsNeto/rn-mail-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/RubsNeto/rn-mail-theme/actions/workflows/ci.yml)
-  [![CodeQL](https://github.com/RubsNeto/rn-mail-theme/actions/workflows/codeql.yml/badge.svg)](https://github.com/RubsNeto/rn-mail-theme/actions/workflows/codeql.yml)
-  [![Versão](https://img.shields.io/github/v/release/RubsNeto/rn-mail-theme)](https://github.com/RubsNeto/rn-mail-theme/releases)
+  [![CI](https://github.com/RubsNeto/rn-openmail/actions/workflows/ci.yml/badge.svg)](https://github.com/RubsNeto/rn-openmail/actions/workflows/ci.yml)
+  [![CodeQL](https://github.com/RubsNeto/rn-openmail/actions/workflows/codeql.yml/badge.svg)](https://github.com/RubsNeto/rn-openmail/actions/workflows/codeql.yml)
+  [![Versão](https://img.shields.io/github/v/release/RubsNeto/rn-openmail)](https://github.com/RubsNeto/rn-openmail/releases)
   [![Licença](https://img.shields.io/badge/licen%C3%A7a-GPL--3.0%20%2F%20GPL--2.0-blue)](NOTICE.md)
 
   [English](README.md)
 </div>
 
-O RN Mail Theme aplica a experiência visual completa da RN a uma instalação existente do **mailcow: dockerized**: entrada, páginas de usuário, administração, operações de domínio e webmail SOGo. Ele é uma camada de frontend, não uma distribuição de servidor de e-mail, e não altera o transporte nem as mensagens armazenadas.
+O RN OpenMail aplica a experiência visual completa da RN a uma instalação existente do **mailcow: dockerized**: entrada, páginas de usuário, administração, operações de domínio e webmail SOGo. Ele é uma camada de frontend, não uma distribuição de servidor de e-mail, e não altera o transporte nem as mensagens armazenadas.
 
 > [!IMPORTANT]
 > Este é um projeto comunitário independente, sem afiliação ou endosso do mailcow ou do SOGo.
@@ -44,8 +44,8 @@ Abra `http://localhost:8080/preview/`. A prévia é estática e não se conecta 
 ## Instalação rápida
 
 ```bash
-git clone https://github.com/RubsNeto/rn-mail-theme.git
-cd rn-mail-theme
+git clone https://github.com/RubsNeto/rn-openmail.git
+cd rn-openmail
 cp config/rn-config.example.js config/rn-config.js
 editor config/rn-config.js
 sudo ./scripts/install.sh
@@ -54,21 +54,33 @@ sudo ./scripts/install.sh
 O caminho padrão é `/opt/mailcow-dockerized`. Para outro ambiente:
 
 ```bash
-sudo RN_MAIL_ROOT=/srv/mailcow \
-  RN_MAIL_BACKUP_ROOT=/srv/backups/rn-mail-theme \
-  RN_MAIL_CONFIG_FILE="$PWD/config/rn-config.js" \
+sudo RN_OPENMAIL_ROOT=/srv/mailcow \
+  RN_OPENMAIL_BACKUP_ROOT=/srv/backups/rn-openmail \
+  RN_OPENMAIL_CONFIG_FILE="$PWD/config/rn-config.js" \
   ./scripts/install.sh
 ```
 
+As variáveis antigas `RN_MAIL_*` continuam aceitas para atualizar instalações anteriores à versão 1.2.0.
+
 O instalador para antes de qualquer alteração quando encontra um `docker-compose.override.yml` que não pertence ao projeto. Nesse caso, mescle primeiro os volumes SOGo de [`examples/docker-compose.override.yml`](examples/docker-compose.override.yml). Requisitos completos e checklist estão em [Instalação](docs/INSTALLATION.md).
+
+## Instalar com um agente de IA
+
+O arquivo [`AGENTS.md`](AGENTS.md) é um roteiro específico para um agente instalar o RN OpenMail em uma VPS. Ele determina o escopo permitido, as verificações obrigatórias, as regras de backup e rollback, o tratamento de segredos, os comandos e as evidências que o agente deve entregar.
+
+Forneça acesso SSH pelo seu mecanismo seguro habitual, informe o caminho do mailcow e a URL pública, e use um prompt como:
+
+> Leia o `AGENTS.md` por completo e instale a versão estável atual do RN OpenMail na minha VPS. O mailcow está em `/opt/mailcow-dockerized` e a URL pública é `https://mail.example.com`. Preserve dados e configurações existentes, crie um backup verificado antes das alterações, execute a validação completa e faça rollback automático se ela falhar.
+
+Não coloque chaves privadas, senhas, tokens ou o conteúdo do `mailcow.conf` no prompt ou no repositório. O agente deve usar uma sessão SSH já autorizada e manter credenciais fora da saída dos comandos.
 
 ## Configuração
 
 As preferências locais ficam em `config/rn-config.js`, ignorado pelo Git:
 
 ```js
-window.RN_MAIL_CONFIG = Object.freeze({
-  brand: 'RN Mail',
+window.RN_OPENMAIL_CONFIG = Object.freeze({
+  brand: 'RN OpenMail',
   company: 'Example Company',
   defaultDomain: 'example.com',
   directoryLabel: 'Internal directory',
@@ -84,14 +96,14 @@ Deixe `defaultDomain` vazio para exigir o e-mail completo. `directoryLabel` nome
 O instalador informa o diretório do backup. Valide serviços locais e assets públicos com:
 
 ```bash
-sudo RN_MAIL_URL=https://mail.example.com \
-  ./scripts/validate.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
+sudo RN_OPENMAIL_URL=https://mail.example.com \
+  ./scripts/validate.sh /opt/rn-openmail-backups/TIMESTAMP-v1.2.0
 ```
 
 Restaure exatamente o estado anterior da interface com:
 
 ```bash
-sudo ./scripts/rollback.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
+sudo ./scripts/rollback.sh /opt/rn-openmail-backups/TIMESTAMP-v1.2.0
 ```
 
 O rollback verifica checksum e caminhos do arquivo, restaura os arquivos anteriores e remove somente arquivos do tema registrados como inexistentes antes da instalação.
@@ -107,6 +119,7 @@ O rollback verifica checksum e caminhos do arquivo, restaura os arquivos anterio
 | `scripts/` | Instalação, validação, rollback e auditorias. |
 | `preview/` | Prévia estática da administração com domínios reservados. |
 | `docs/` | Instalação, configuração, arquitetura e upgrades. |
+| `AGENTS.md` | Contrato de segurança e roteiro de instalação na VPS para agentes de IA. |
 
 Leia [Arquitetura](docs/ARCHITECTURE.md) para entender os limites da integração e [Upgrades](docs/UPGRADING.md) antes de mudar versões do mailcow ou SOGo.
 
@@ -118,7 +131,7 @@ Nunca publique `mailcow.conf`, certificados, `.env`, dumps, logs, dados de clien
 
 ## Contribuição e suporte
 
-Contribuições são bem-vindas. Leia [CONTRIBUTING.md](CONTRIBUTING.md), siga o [Código de Conduta](CODE_OF_CONDUCT.md) e use [Discussions](https://github.com/RubsNeto/rn-mail-theme/discussions) para dúvidas. [SUPPORT.md](SUPPORT.md) indica o canal correto para cada assunto.
+Contribuições são bem-vindas. Leia [CONTRIBUTING.md](CONTRIBUTING.md), siga o [Código de Conduta](CODE_OF_CONDUCT.md) e use [Discussions](https://github.com/RubsNeto/rn-openmail/discussions) para dúvidas. [SUPPORT.md](SUPPORT.md) indica o canal correto para cada assunto.
 
 ## Licenças e marcas
 

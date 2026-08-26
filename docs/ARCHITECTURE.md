@@ -1,6 +1,6 @@
 # Architecture
 
-RN Mail Theme is a presentation and browser-behavior layer over an existing mailcow: dockerized installation.
+RN OpenMail is a presentation and browser-behavior layer over an existing mailcow: dockerized installation.
 
 ```text
 browser

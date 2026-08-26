@@ -3,8 +3,8 @@
 Copy `config/rn-config.example.js` to `config/rn-config.js`. The installer places it before the main theme script in mailcow's JavaScript build directory.
 
 ```js
-window.RN_MAIL_CONFIG = Object.freeze({
-  brand: 'RN Mail',
+window.RN_OPENMAIL_CONFIG = Object.freeze({
+  brand: 'RN OpenMail',
   company: 'Example Company',
   defaultDomain: 'example.com',
   directoryLabel: 'Internal directory',
@@ -12,6 +12,8 @@ window.RN_MAIL_CONFIG = Object.freeze({
   adminDomainsLanding: true
 });
 ```
+
+`RN_MAIL_CONFIG` remains a supported legacy alias for upgrades from releases before 1.2.0. New configurations should use `RN_OPENMAIL_CONFIG`.
 
 | Option | Purpose |
 | --- | --- |
@@ -24,7 +26,7 @@ window.RN_MAIL_CONFIG = Object.freeze({
 
 Do not put secrets in this file: it is sent to every visitor's browser.
 
-## Replacing the RN brand
+## Replacing the RN OpenMail brand
 
 Replace the files in `assets/brand/` with equivalents using the same file names and formats, or change `logoUrl` for the mailcow interface. Keep reasonable dimensions and transparent backgrounds.
 

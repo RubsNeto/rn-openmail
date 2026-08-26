@@ -3,8 +3,8 @@
 (function () {
   'use strict';
 
-  var CONFIG = window.RN_MAIL_CONFIG || {};
-  var BRAND = String(CONFIG.brand || 'RN Mail');
+  var CONFIG = window.RN_OPENMAIL_CONFIG || window.RN_MAIL_CONFIG || {};
+  var BRAND = String(CONFIG.brand || 'RN OpenMail');
   var COMPANY = String(CONFIG.company || 'RN Design & Serviços');
   var configuredDomain = String(CONFIG.defaultDomain || '').trim().replace(/^@/, '');
   var DOMAIN = configuredDomain ? '@' + configuredDomain.toLowerCase() : '';
@@ -43,7 +43,7 @@
     if (forcedContext === 'admin') {
       return {
         key: 'admin',
-        eyebrow: 'CENTRAL RN MAIL',
+        eyebrow: 'CENTRAL RN OPENMAIL',
         title: 'Administração',
         description: 'Gerencie contas, domínios, segurança e a operação do seu e-mail.'
       };
@@ -52,7 +52,7 @@
     if (pathStartsWith('/admin')) {
       return {
         key: 'admin',
-        eyebrow: 'CENTRAL RN MAIL',
+        eyebrow: 'CENTRAL RN OPENMAIL',
         title: 'Administração',
         description: 'Gerencie contas, domínios, segurança e a operação do seu e-mail.'
       };
@@ -87,7 +87,7 @@
 
     return {
       key: 'portal',
-      eyebrow: 'RN MAIL',
+      eyebrow: 'RN OPENMAIL',
       title: 'E-mail profissional',
       description: 'Comunicação, segurança e produtividade em um só lugar.'
     };
@@ -97,7 +97,7 @@
     if (!value || typeof value !== 'string') return value;
 
     return value
-      .replace(/cow_mailcow/gi, 'rn-mail')
+      .replace(/cow_mailcow/gi, 'rn-openmail')
       .replace(/mailcow/gi, BRAND)
       .replace(/🐮\s*\+\s*🐋\s*=\s*💕/g, COMPANY)
       .replace(/🛠️?🐮\s*\+\s*🐋\s*=\s*💕/g, COMPANY);
@@ -186,7 +186,7 @@
 
     var intro = document.createElement('section');
     intro.className = 'rn-login-intro';
-    intro.setAttribute('aria-label', isUserLogin ? 'Recursos do RN Mail' : context.title);
+    intro.setAttribute('aria-label', isUserLogin ? 'Recursos do RN OpenMail' : context.title);
 
     var eyebrow = document.createElement('div');
     eyebrow.className = 'rn-login-eyebrow';
@@ -544,7 +544,7 @@
 
     var signature = document.createElement('div');
     signature.className = 'rn-product-signature';
-    signature.innerHTML = '<strong>RN Mail</strong><span>Uma solução ' + COMPANY + '</span>';
+    signature.innerHTML = '<strong>RN OpenMail</strong><span>Uma solução ' + COMPANY + '</span>';
     footer.appendChild(signature);
   }
 
@@ -564,7 +564,7 @@
     document.documentElement.lang = 'pt-BR';
     document.title = context.title + ' | ' + BRAND;
 
-    navbar.setAttribute('aria-label', 'Navegação principal do RN Mail');
+    navbar.setAttribute('aria-label', 'Navegação principal do RN OpenMail');
     addSkipLink(main);
     addPageIntro(main, context);
     addDomainsNavigation(navbar);
@@ -578,7 +578,7 @@
     });
 
     document.querySelectorAll('table').forEach(function (table) {
-      if (!table.hasAttribute('aria-label')) table.setAttribute('aria-label', 'Dados do RN Mail');
+      if (!table.hasAttribute('aria-label')) table.setAttribute('aria-label', 'Dados do RN OpenMail');
     });
   }
 

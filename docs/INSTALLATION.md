@@ -1,6 +1,6 @@
 # Installation
 
-RN Mail Theme changes interface files and restarts only the SOGo and memcached services. It does not modify mail data, mailcow databases, certificates or the mail transport topology. Even so, test on a staging instance first and keep an independent mailcow backup.
+RN OpenMail changes interface files and restarts only the SOGo and memcached services. It does not modify mail data, mailcow databases, certificates or the mail transport topology. Even so, test on a staging instance first and keep an independent mailcow backup.
 
 ## Requirements
 
@@ -15,8 +15,8 @@ The theme depends on upstream HTML and Angular Material structure. Review [UPGRA
 ## 1. Prepare local configuration
 
 ```bash
-git clone https://github.com/RubsNeto/rn-mail-theme.git
-cd rn-mail-theme
+git clone https://github.com/RubsNeto/rn-openmail.git
+cd rn-openmail
 cp config/rn-config.example.js config/rn-config.js
 editor config/rn-config.js
 ```
@@ -44,9 +44,9 @@ sudo ./scripts/install.sh
 For a different mailcow or backup location:
 
 ```bash
-sudo RN_MAIL_ROOT=/srv/mailcow \
-  RN_MAIL_BACKUP_ROOT=/srv/backups/rn-mail-theme \
-  RN_MAIL_CONFIG_FILE="$PWD/config/rn-config.js" \
+sudo RN_OPENMAIL_ROOT=/srv/mailcow \
+  RN_OPENMAIL_BACKUP_ROOT=/srv/backups/rn-openmail \
+  RN_OPENMAIL_CONFIG_FILE="$PWD/config/rn-config.js" \
   ./scripts/install.sh
 ```
 
@@ -57,11 +57,11 @@ The installer validates every source file, records existing and previously missi
 Use the backup path printed by the installer:
 
 ```bash
-sudo RN_MAIL_URL=https://mail.example.com \
-  ./scripts/validate.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
+sudo RN_OPENMAIL_URL=https://mail.example.com \
+  ./scripts/validate.sh /opt/rn-openmail-backups/TIMESTAMP-v1.2.0
 ```
 
-Without `RN_MAIL_URL`, the script performs only local file, Compose, service and backup checks.
+Without `RN_OPENMAIL_URL`, the script performs only local file, Compose, service and backup checks. Legacy `RN_MAIL_*` variables remain supported for upgrades from releases before 1.2.0.
 
 Then verify manually:
 
@@ -78,9 +78,9 @@ Then verify manually:
 ## Rollback
 
 ```bash
-sudo ./scripts/rollback.sh /opt/rn-mail-theme-backups/TIMESTAMP-v1.1.0
+sudo ./scripts/rollback.sh /opt/rn-openmail-backups/TIMESTAMP-v1.2.0
 ```
 
-Rollback accepts only a directory below `RN_MAIL_BACKUP_ROOT`, verifies SHA-256 and archive paths, restores previous files, removes files that did not exist before installation and restarts the affected services.
+Rollback accepts only a directory below `RN_OPENMAIL_BACKUP_ROOT`, verifies SHA-256 and archive paths, restores previous files, removes files that did not exist before installation and restarts the affected services.
 
 Uploaded profile photos are user data and are intentionally preserved by theme rollback. Back up `data/web/img/rn-profile-photos` with your normal mailcow backup policy before moving or removing the installation.
