@@ -1,0 +1,45 @@
+# Local branding configuration
+config/rn-config.js
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.csr
+*.jks
+*.keystore
+
+# mailcow/SOGo runtime and private configuration
+mailcow.conf
+sogo.conf
+docker-compose.override.local.yml
+data/
+vmail-vol-*/
+crypt-vol-*/
+mysql-vol-*/
+redis-vol-*/
+
+# Operational output
+backups/
+dumps/
+logs/
+*.log
+*.sql
+*.sql.gz
+*.tgz
+*.tar.gz
+
+# Tooling
+node_modules/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.tmp
+coverage/

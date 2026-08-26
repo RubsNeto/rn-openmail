@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    name: Project integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Check project structure, licenses and public-data hygiene
+        run: node scripts/check-project.mjs
+
+      - name: Parse JavaScript
+        run: |
+          node --check scripts/check-project.mjs
+          node --check config/rn-config.example.js
+          node --check src/mailcow/rn-suite.js
+          node --check src/sogo/custom-theme.js
+          node --check src/sogo/custom-sogo.js
+
+      - name: Parse shell scripts
+        run: bash -n scripts/*.sh
+
+      - name: Run ShellCheck
+        run: shellcheck scripts/*.sh
+
+      - name: Scan repository history for secrets
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

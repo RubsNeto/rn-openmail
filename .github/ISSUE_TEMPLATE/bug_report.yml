@@ -1,0 +1,73 @@
+name: Bug report
+description: Report a reproducible problem in RN Mail Theme.
+title: "[Bug]: "
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Remove credentials, private domains, addresses, message content and customer data. Security vulnerabilities belong in a private security advisory.
+  - type: input
+    id: theme-version
+    attributes:
+      label: Theme version
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: input
+    id: upstream-version
+    attributes:
+      label: mailcow and SOGo versions
+      description: Include the exact mailcow tag/commit and SOGo version when known.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: Firefox 145 on Linux
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Login
+        - User interface
+        - Administrator / domains
+        - SOGo webmail
+        - Installer / validation / rollback
+        - Preview or documentation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      placeholder: Describe the shortest reliable sequence.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and sanitized logs
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I removed secrets, private domains, addresses, message contents and customer data.
+          required: true
+        - label: This is not an unpatched security vulnerability.
+          required: true

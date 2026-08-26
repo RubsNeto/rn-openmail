@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2068 900" width="2068" height="900" fill="none">
+<style>
+.ln{stroke-dasharray:1;stroke-dashoffset:1;animation:rnd 1.5s .25s cubic-bezier(.4,0,.2,1) forwards}
+.br{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.05);animation:rng .85s cubic-bezier(.22,1,.36,1) forwards}
+.pt{transform-box:fill-box;transform-origin:center;animation:rnp 2.8s 1.7s ease-in-out infinite}
+@keyframes rnd{to{stroke-dashoffset:0}}
+@keyframes rng{to{transform:scaleY(1)}}
+@keyframes rnp{0%,100%{transform:scale(1)}50%{transform:scale(1.45)}}
+@media (prefers-reduced-motion:reduce){.ln{animation:none;stroke-dashoffset:0}.br{animation:none;transform:none}.pt{animation:none}}
+</style>
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#0a2540"/><stop offset=".52" stop-color="#071a2d"/><stop offset="1" stop-color="#04101d"/>
+</linearGradient>
+<linearGradient id="acc" x1="0" y1="1" x2="1" y2="0">
+<stop offset="0" stop-color="#5a9aee"/><stop offset=".5" stop-color="#47abe1"/><stop offset="1" stop-color="#3fd0e9"/>
+</linearGradient>
+<linearGradient id="accV" x1="0" y1="1" x2="0" y2="0">
+<stop offset="0" stop-color="#5a9aee" stop-opacity=".55"/><stop offset="1" stop-color="#3fd0e9"/>
+</linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#04101d" stop-opacity="0"/><stop offset="1" stop-color="#04101d" stop-opacity=".85"/>
+</linearGradient>
+<radialGradient id="halo" cx=".5" cy=".5" r=".5">
+<stop offset="0" stop-color="#3fd0e9" stop-opacity=".5"/><stop offset="1" stop-color="#3fd0e9" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="g1" cx=".5" cy=".5" r=".5">
+<stop offset="0" stop-color="#47abe1" stop-opacity=".42"/><stop offset=".55" stop-color="#1a6fae" stop-opacity=".16"/><stop offset="1" stop-color="#1a6fae" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="g2" cx=".5" cy=".5" r=".5">
+<stop offset="0" stop-color="#3fd0e9" stop-opacity=".5"/><stop offset="1" stop-color="#3fd0e9" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<ellipse cx="1034" cy="468" rx="992.64" ry="414" fill="url(#g1)"/>
+<ellipse cx="1034" cy="522" rx="537.6800000000001" ry="270" fill="url(#g2)"/>
+</svg>

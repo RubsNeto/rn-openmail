@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# rn-mail-theme managed example; merge it if you already use an override file.
+services:
+  sogo-mailcow:
+    volumes:
+      - ./data/conf/sogo/custom-theme.css:/usr/local/lib/GNUstep/SOGo/WebServerResources/css/theme-default.css:z
+      - ./data/conf/sogo/rn-glow.svg:/usr/local/lib/GNUstep/SOGo/WebServerResources/img/rn-glow.svg:z
+      - ./data/conf/sogo/rn-icon.png:/usr/local/lib/GNUstep/SOGo/WebServerResources/img/rn-icon.png:z
+      - ./data/conf/sogo/rn-montserrat.woff2:/usr/local/lib/GNUstep/SOGo/WebServerResources/fonts/rn-montserrat.woff2:z
+      - ./data/conf/sogo/rn-material-symbols-outlined.woff2:/usr/local/lib/GNUstep/SOGo/WebServerResources/fonts/rn-material-symbols-outlined.woff2:z
