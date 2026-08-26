@@ -60,13 +60,15 @@ function walk(directory) {
 }
 walk(root);
 
-const forbidden = [
-  [/mail\.rndesign\.dev/gi, 'production hostname'],
-  [/rndesign\.dev/gi, 'private domain'],
-  [/rnservicos\.com\.br/gi, 'private domain'],
-  [/rnetecnologia\.com\.br/gi, 'private domain'],
-  [/RubsNeto\/email/gi, 'private repository'],
-  [/mailcow-rn-theme-stage/gi, 'private staging path'],
+const forbiddenLiterals = [
+  ['mail.rndesign.dev', 'production hostname'],
+  ['rndesign.dev', 'private domain'],
+  ['rnservicos.com.br', 'private domain'],
+  ['rnetecnologia.com.br', 'private domain'],
+  ['rubsneto/email', 'private repository'],
+  ['mailcow-rn-theme-stage', 'private staging path']
+];
+const forbiddenPatterns = [
   [/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/g, 'private key'],
   [/\bgh[pousr]_[A-Za-z0-9_]{30,}\b/g, 'GitHub token'],
   [/\bAKIA[0-9A-Z]{16}\b/g, 'AWS access key']
@@ -77,7 +79,11 @@ for (const absolute of textFiles) {
   const contents = readFileSync(absolute, 'utf8');
   if (contents.includes('\r\n')) fail(`${path}: CRLF line endings found`);
   if (path !== 'scripts/check-project.mjs') {
-    for (const [pattern, label] of forbidden) {
+    const lowerContents = contents.toLowerCase();
+    for (const [value, label] of forbiddenLiterals) {
+      if (lowerContents.includes(value)) fail(`${path}: ${label} found`);
+    }
+    for (const [pattern, label] of forbiddenPatterns) {
       pattern.lastIndex = 0;
       if (pattern.test(contents)) fail(`${path}: ${label} found`);
     }
