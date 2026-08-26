@@ -371,6 +371,7 @@
 
   function compiledAvatar(email, size, className) {
     var host = createElement('span', className || 'rn-avatar-host');
+    host.classList.add('rn-compiled-avatar');
     host.style.width = size + 'px';
     host.style.height = size + 'px';
 
@@ -402,6 +403,19 @@
     appendNativePhoto(host, email, size);
 
     return host;
+  }
+
+  function destroyCompiledAvatars(root) {
+    if (!root || root.nodeType !== 1) return;
+    var hosts = [];
+    if (root.classList.contains('rn-compiled-avatar')) hosts.push(root);
+    root.querySelectorAll('.rn-compiled-avatar').forEach(function (host) {
+      hosts.push(host);
+    });
+    hosts.forEach(function (host) {
+      if (host.__rnScope && !host.__rnScope.$$destroyed) host.__rnScope.$destroy();
+      delete host.__rnScope;
+    });
   }
 
   function renderedAvatar(source, size, className, email) {
@@ -540,6 +554,8 @@
     var uploadStatus = createElement('div', 'rn-photo-upload-status');
     uploadStatus.setAttribute('role', 'status');
     uploadStatus.setAttribute('aria-live', 'polite');
+    checkbox.classList.add('rn-gravatar-toggle');
+    controls.appendChild(checkbox);
     controls.appendChild(fileInput);
     controls.appendChild(uploadButton);
     controls.appendChild(removeButton);
@@ -647,6 +663,7 @@
     }
 
     status.className = 'rn-recipient-status rn-state-' + state;
+    destroyCompiledAvatars(status);
     status.textContent = '';
     status.appendChild(icon(state === 'valid' ? 'verified' : state === 'invalid' ? 'error_outline' : state === 'gmail' ? 'alternate_email' : 'info'));
     status.appendChild(createElement('span', '', text));
@@ -924,7 +941,10 @@
 
     syncMessageRouteState();
     enhanceAll();
-    var observer = new MutationObserver(function () {
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.removedNodes.forEach(destroyCompiledAvatars);
+      });
       syncMessageRouteState();
       window.clearTimeout(observerTimer);
       observerTimer = window.setTimeout(enhanceAll, 80);

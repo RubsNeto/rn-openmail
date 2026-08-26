@@ -13,7 +13,9 @@ function rn_photo_json(int $status, array $payload): void
     http_response_code($status);
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store');
-    echo json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'HEAD') {
+        echo json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
     exit;
 }
 
@@ -160,5 +162,4 @@ rn_photo_json(200, [
     'ok' => true,
     'url' => '/rn-profile-photo.php?v=' . (int) filemtime($photoPath),
 ]);
-
 

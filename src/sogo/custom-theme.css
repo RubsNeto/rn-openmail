@@ -2006,6 +2006,10 @@ body.rn-preferences-v8 #generalOptionsView-content label {
   font-weight: 650 !important;
 }
 
+.rn-avatar-controls .rn-gravatar-toggle {
+  grid-column: 1 / -1;
+}
+
 .rn-avatar-action {
   grid-column: 1 / -1;
   min-height: 40px;

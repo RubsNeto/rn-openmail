@@ -154,8 +154,20 @@ for (const marker of ['rn-profile-photo.php', 'rn-profile-photos', '--force-recr
 }
 
 const sogoScript = readFileSync(join(root, 'src/sogo/custom-sogo.js'), 'utf8');
-for (const marker of ['function syncMessageRouteState', 'rn-message-loading', 'openProfileCropper', 'MAIL_CONFIG.defaultDomain']) {
+for (const marker of [
+  'function syncMessageRouteState',
+  'rn-message-loading',
+  'openProfileCropper',
+  'MAIL_CONFIG.defaultDomain',
+  'function destroyCompiledAvatars',
+  'rn-gravatar-toggle'
+]) {
   if (!sogoScript.includes(marker)) fail(`SOGo integration marker is missing: ${marker}`);
+}
+
+const profileEndpoint = readFileSync(join(root, 'src/mailcow/rn-profile-photo.php'), 'utf8');
+if (!profileEndpoint.includes("REQUEST_METHOD'] ?? 'GET') !== 'HEAD'")) {
+  fail('profile endpoint must suppress JSON bodies for HEAD requests');
 }
 try {
   new vm.Script(`${configExample}\n${sogoScript}`, { filename: 'installed-custom-sogo.js' });
